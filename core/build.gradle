@@ -9,14 +9,25 @@ buildscript {
     }
 }
 
+
 dependencies {
     testCompile 'junit:junit:4.10'
 }
 
-flyway{
+apply plugin: 'org.flywaydb.flyway'
+
+flyway {
     url = 'jdbc:mysql://localhost:3306/javaee_usr_info'
     user = 'root'
     password = ''
     baselineOnMigrate = true
 }
+
+//task initSeed {
+//    INSERT INTO usr_table (name, gender, age, email) VALUES ("hello1","F",20,"123@123.com");
+//}
+
+
+
+
 

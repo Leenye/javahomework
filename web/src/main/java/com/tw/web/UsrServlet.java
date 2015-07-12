@@ -30,8 +30,6 @@ public class UsrServlet extends HttpServlet {
         String gender = request.getParameter("gender");
         String age = request.getParameter("age");
         String email = request.getParameter("email");
-        System.out.println("--------");
-
 
         Usr usr = new Usr(0,name,gender,Integer.parseInt(age),email);
 

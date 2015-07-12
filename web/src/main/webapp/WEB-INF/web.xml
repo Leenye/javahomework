@@ -13,11 +13,11 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/insertUsr</url-pattern>
     </servlet-mapping>
+
 
     <servlet>
         <servlet-name>DeleteServlet</servlet-name>

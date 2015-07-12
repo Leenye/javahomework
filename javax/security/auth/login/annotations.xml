@@ -1,0 +1,5 @@
+<root>
+  <item name='javax.security.auth.login.Configuration'>
+    <annotation name='java.lang.annotation.Deprecated'/>
+  </item>
+</root>
