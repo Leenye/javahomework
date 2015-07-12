@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!--類別名稱與表格名稱映射-->
+    <class name="com.tw.entity.Usr" table="usr_table">
+        <!--id與主鍵映射-->
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <!--類別屬性與表格欄位的映射-->
+        <property name="name" column="name"/>
+        <property name="gender" column="gender"/>
+        <property name="age" column="age"/>
+        <property name="email" column="email"/>
+    </class>
+</hibernate-mapping>
+
+
+
+<!--<hibernate-mapping package="java.com.tw.entity.Usr">-->
+
+    <!--<class name="Event" table="EVENTS">-->
+        <!--<id name="id" column="EVENT_ID">-->
+            <!--<generator class="native"/>-->
+        <!--</id>-->
+        <!--<property name="date" type="timestamp" column="EVENT_DATE"/>-->
+        <!--<property name="title"/>-->
+    <!--</class>-->
+
+<!--</hibernate-mapping>-->
+
+
+
