@@ -33,7 +33,7 @@ public class UsrServlet extends HttpServlet {
 
         Usr usr = new Usr(0,name,gender,Integer.parseInt(age),email);
 
-        int result = new UsrDao().insert_usr(usr);
+        new UsrDao().insert_usr(usr);
 
         response.sendRedirect("/web");
     }

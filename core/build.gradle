@@ -1,12 +1,12 @@
 apply plugin: 'java'
+apply plugin: 'org.flywaydb.flyway'
 
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies{
-        classpath 'org.flywaydb:flyway-gradle-plugin:3.2.1'
-    }
+        classpath "org.flywaydb:flyway-gradle-plugin:3.2.1"    }
 }
 
 
@@ -16,7 +16,7 @@ dependencies {
 //    compile 'org.hibernate:hibernate-core:4.3.10.Final'
 }
 
-apply plugin: 'org.flywaydb.flyway'
+//apply plugin: 'org.flywaydb.flyway'
 
 flyway {
     url = 'jdbc:mysql://localhost:3306/javaee_usr_info'

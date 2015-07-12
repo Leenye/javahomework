@@ -1,5 +1,6 @@
 package com.tw.dao;
 
+import com.tw.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -16,6 +17,9 @@ import java.util.List;
  * Created by twer on 7/8/15.
  */
 public class UsrDao {
+
+    Configuration cfg = new Configuration().configure();
+    SessionFactory factory = cfg.buildSessionFactory();
 
     public Connection connection(){
         try {
@@ -54,16 +58,21 @@ public class UsrDao {
         return  null;
     }
 
-    public int insert_usr(Usr usr){
-        int result = 0;
-        try {
-            statement = connection().createStatement();
-            String sql = "insert into usr_table values(null,'"+usr.getName()+"','"+usr.getGender()+"','"+usr.getAge()+"','"+usr.getEmail()+"')";
-            result = statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  result;
+    public void insert_usr(Usr usr){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();//开启操作数据库的事务
+        session.save(usr);
+        session.getTransaction().commit();
+        session.close();
+//        int result = 0;
+//        try {
+//            statement = connection().createStatement();
+//            String sql = "insert into usr_table values(null,'"+usr.getName()+"','"+usr.getGender()+"','"+usr.getAge()+"','"+usr.getEmail()+"')";
+//            result = statement.executeUpdate(sql);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return  result;
     }
 
     public int delete_usr(int id){
