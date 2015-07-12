@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class InsertServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Usr usr = new Usr(0,"Jack","M",38,"123@1.com");
-        new UsrDao().insert_usr(usr);
         RequestDispatcher de = request.getRequestDispatcher("index.jsp");
         de.forward(request,response);
     }

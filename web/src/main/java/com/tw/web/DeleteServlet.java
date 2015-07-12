@@ -17,7 +17,7 @@ import java.util.List;
 public class DeleteServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-         new UsrDao().delete_usr(id);
+        new UsrDao().delete_usr(id);
 
         response.sendRedirect("/web");
 

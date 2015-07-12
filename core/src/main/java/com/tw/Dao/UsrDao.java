@@ -2,15 +2,11 @@ package com.tw.dao;
 
 import com.tw.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.Query;
 
 
 import com.tw.entity.Usr;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,44 +14,15 @@ import java.util.List;
  */
 public class UsrDao {
 
-    Configuration cfg = new Configuration().configure();
-    SessionFactory factory = cfg.buildSessionFactory();
-
-    public Connection connection(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance(); //MYSQL驱动
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaee_usr_info", "root", "");
-            return connection;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    Statement statement;
-
     public List<Usr> get_usrs() {
-        List<Usr> usrs = new ArrayList<Usr>();
-        try {
-            statement = connection().createStatement();
-            ResultSet rs = statement.executeQuery("select * from usr_table");
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String gender = rs.getString("gender");
-                int age = rs.getInt("age");
-                String email = rs.getString("email");
+        String hql = "from Usr";
+        Query query  = session.createQuery(hql);
+        List<Usr> usrs = query.list();
 
-                Usr usr = new Usr(id, name, gender, age, email);
-                usrs.add(usr);
-            }
-            return usrs;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  null;
+        session.close();
+        return usrs;
     }
 
     public void insert_usr(Usr usr){
@@ -64,78 +31,34 @@ public class UsrDao {
         session.save(usr);
         session.getTransaction().commit();
         session.close();
-//        int result = 0;
-//        try {
-//            statement = connection().createStatement();
-//            String sql = "insert into usr_table values(null,'"+usr.getName()+"','"+usr.getGender()+"','"+usr.getAge()+"','"+usr.getEmail()+"')";
-//            result = statement.executeUpdate(sql);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return  result;
     }
 
-    public int delete_usr(int id){
-        int result = 0;
-        try {
-            statement = connection().createStatement();
-            String sql = "delete from usr_table where id="+id;
-            result = statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void delete_usr(int id){
+        Usr usr = new Usr();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();//开启操作数据库的事务
+        usr.setId(id);
+        session.delete(usr);
+        session.getTransaction().commit();
+        session.close();
 
-        return result;
     }
 
     public Usr get_element_by_id(int id) {
-        Usr usr = null;
-        try {
-            statement = connection().createStatement();
-            ResultSet rs = statement.executeQuery("select * from usr_table where id='"+ id +"'");
-            rs.next();
-
-            usr = new Usr(rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("gender"),
-                    rs.getInt("age"),
-                    rs.getString("email")
-            );
-
-            rs.close();
-            statement.close();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Session session = HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();//开启操作数据库的事务
+        Usr usr = (Usr) session.get(Usr.class,id);
         return usr;
 
     }
 
-    public int update(Usr usr){
-        int result = 0;
-        try {
-            statement = connection().createStatement();
-            String sql = "update usr_table set name = '"+usr.getName()+"', gender = '"+usr.getGender()
-                    +"',age = "+usr.getAge()+" ,email = '"+usr.getEmail()
-                    +"' where id = "+usr.getId()+"";
-            result = statement.executeUpdate(sql);
-            statement.close();
-
-//            ResultSet rs = statement.executeQuery("UPDATE usr_table SET name='"+usr.getName()+"',gender='"+usr.getGender()+"',age="+usr.getAge()+",email='"+usr.getEmail()+"' where id='"+ usr.getId()+"'");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
+    public void update(Usr usr){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();//开启操作数据库的事务
+        session.update(usr);
+        session.getTransaction().commit();
+        session.close();
 
     }
-
-
-//    public List<Usr> update_usr(){
-//        List<Usr> usrs = new ArrayList<Usr>();
-//
-//
-//    }
-
-
 
 }

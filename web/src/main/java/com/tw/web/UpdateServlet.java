@@ -27,7 +27,6 @@ public class UpdateServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-//        System.out.println(request.getParameter("id") + "============");
         String name = request.getParameter("name");
         String gender = request.getParameter("gender");
         int age = Integer.parseInt(request.getParameter("age"));
@@ -35,13 +34,13 @@ public class UpdateServlet extends HttpServlet {
 
         Usr usr = new Usr(id,name,gender,age,email);
 
-        System.out.print(usr.getId() + "=========");
+//        System.out.print(usr.getId() + "=========");
         new UsrDao().update(usr);
-//        request.setAttribute("usr",usr);
+        request.setAttribute("usr",usr);
 
         response.sendRedirect("/web");
-//        RequestDispatcher de = request.getRequestDispatcher("index.jsp");
-//        de.forward(request,response);
+        RequestDispatcher de = request.getRequestDispatcher("index.jsp");
+        de.forward(request,response);
     }
 
 

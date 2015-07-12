@@ -20,6 +20,7 @@ public class UsrServlet extends HttpServlet {
         List<Usr> usrs = new UsrDao().get_usrs();
         request.setAttribute("usrs",usrs);
 
+
         RequestDispatcher de = request.getRequestDispatcher("index.jsp");
         de.forward(request,response);
     }

@@ -10,6 +10,9 @@ public class Usr {
     private  int age;
     private  String email;
 
+    public Usr() {
+    }
+
     public int getId() {
         return id;
     }
