@@ -21,11 +21,19 @@ public class UserService {
         usrDao.insert_usr(usr);
     }
 
-//    public String service() {
-//        UsrDao usrDao = new UsrDao();
-//        List<Usr> usrList = usrDao.get_usrs();
-//        return "Hello World";
-//    }
+    public void delete_user(int id) {
+        usrDao.delete_usr(id);
+    }
+
+    public Usr get_element_by_id(int id) {
+        return usrDao.get_element_by_id(id);
+    }
+
+    public void update_user(Usr usr){
+        usrDao.update(usr);
+    }
+
+
 
 
 }

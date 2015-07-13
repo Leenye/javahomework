@@ -34,7 +34,6 @@ public class UpdateServlet extends HttpServlet {
 
         Usr usr = new Usr(id,name,gender,age,email);
 
-//        System.out.print(usr.getId() + "=========");
         new UsrDao().update(usr);
         request.setAttribute("usr",usr);
 

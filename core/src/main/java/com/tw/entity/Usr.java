@@ -13,6 +13,13 @@ public class Usr {
     public Usr() {
     }
 
+    public Usr(String name, String gender, int age, String email) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.email = email;
+    }
+
     public int getId() {
         return id;
     }

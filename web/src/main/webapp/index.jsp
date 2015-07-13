@@ -31,7 +31,7 @@
 </table>
 
 
-<form action="/web" method="post">
+<form action="" method="post">
     <table border="1">
 
         <tr>
