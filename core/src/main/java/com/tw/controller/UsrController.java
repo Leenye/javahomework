@@ -43,13 +43,11 @@ public class UsrController {
         modelAndView.addObject("usr",targetUsr);
         return modelAndView;
     }
-    
+
     @RequestMapping(value="/updateUsr",method = RequestMethod.POST)
     public ModelAndView updateUser(@RequestParam int id, String name, String gender, int age, String email) {
         Usr usr = new Usr(id,name,gender,age,email);
         userService.update_user(usr);
         return new ModelAndView("redirect:/");
     }
-
-
 }

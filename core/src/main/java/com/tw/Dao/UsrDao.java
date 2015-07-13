@@ -60,7 +60,6 @@ public class UsrDao {
         session.update(usr);
         session.getTransaction().commit();
         session.close();
-
     }
 
 }
