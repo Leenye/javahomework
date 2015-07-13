@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 
-public class ServiceTest {
+public class UserServiceTest {
 
     @Test
     public void test() throws Exception {

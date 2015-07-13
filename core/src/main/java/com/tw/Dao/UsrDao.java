@@ -6,12 +6,14 @@ import org.hibernate.Query;
 
 
 import com.tw.entity.Usr;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by twer on 7/8/15.
  */
+@Repository
 public class UsrDao {
 
     public List<Usr> get_usrs() {

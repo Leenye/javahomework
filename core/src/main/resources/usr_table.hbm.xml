@@ -18,19 +18,3 @@
     </class>
 </hibernate-mapping>
 
-
-
-<!--<hibernate-mapping package="java.com.tw.entity.Usr">-->
-
-    <!--<class name="Event" table="EVENTS">-->
-        <!--<id name="id" column="EVENT_ID">-->
-            <!--<generator class="native"/>-->
-        <!--</id>-->
-        <!--<property name="date" type="timestamp" column="EVENT_DATE"/>-->
-        <!--<property name="title"/>-->
-    <!--</class>-->
-
-<!--</hibernate-mapping>-->
-
-
-
