@@ -26,9 +26,8 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "",method = RequestMethod.GET)
     public ModelAndView getUsers() {
-        System.out.println("This is get request");
         return new ModelAndView("login");
     }
 
@@ -37,10 +36,8 @@ public class LoginController {
 
         System.out.println("this is post request");
 
-        boolean loginAble = userService.login_judgement(name,password);
-//        session.setAttribute("loginStatement",loginAble);
-
-        if (loginAble==true) {
+        boolean logined = userService.login_judgement(name,password);
+        if (logined==true) {
             session.setAttribute("loginStatement","login");
             return new ModelAndView("redirect:/");
         }else {

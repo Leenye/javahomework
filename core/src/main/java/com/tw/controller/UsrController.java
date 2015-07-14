@@ -19,42 +19,37 @@ public class UsrController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getUsers(HttpSession session) {
 
         String loginStatement = (String) session.getAttribute("loginStatement");
-        if(loginStatement == "login"){
+        if (loginStatement == "login") {
             return new ModelAndView("index", "usrs", userService.get_users());
-        }else{
+        } else {
             return new ModelAndView("redirect:/login");
-
         }
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email,HttpSession session) {
-        System.out.println("++++++++++++++");
+    public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email, HttpSession session) {
         String loginStatement = (String) session.getAttribute("loginStatement");
-        if(loginStatement == "login"){
+        if (loginStatement == "login") {
             Usr usr = new Usr(name, gender, age, email);
             userService.insert_users(usr);
             return new ModelAndView("redirect:/");
-        }else{
+        } else {
             return new ModelAndView("redirect:/login");
-
         }
     }
 
-    @RequestMapping(value="/deleteUsr",method = RequestMethod.GET)
-    public ModelAndView deleteUsers(@RequestParam int id,HttpSession session) {
+    @RequestMapping(value = "/deleteUsr", method = RequestMethod.GET)
+    public ModelAndView deleteUsers(@RequestParam int id, HttpSession session) {
         String loginStatement = (String) session.getAttribute("loginStatement");
-        if(loginStatement == "login"){
+        if (loginStatement == "login") {
             userService.delete_user(id);
             return new ModelAndView("redirect:/");
-        }else{
+        } else {
             return new ModelAndView("redirect:/login");
-
         }
 
     }
@@ -77,9 +72,6 @@ public class UsrController {
             return new ModelAndView("redirect:/");
         }else{
             return new ModelAndView("redirect:/login");
-
         }
-
     }
-
 }

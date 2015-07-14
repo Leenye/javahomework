@@ -84,4 +84,13 @@ public class Usr {
         this.age = age;
         this.email = email;
     }
+
+    public Usr(int id, String name, String gender, int age, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+    }
 }
