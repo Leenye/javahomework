@@ -20,22 +20,28 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/login")
 public class LoginController {
 
-    @Autowired
-    private HttpServletRequest request;
+//    @Autowired
+//    private HttpServletRequest request;
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getUsers() {
+        System.out.println("This is get request");
         return new ModelAndView("login");
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView loginJudgement(@RequestParam String name, String password) {
-        System.out.println(name+password);
+    @RequestMapping(value = "",method = RequestMethod.POST)
+    public ModelAndView loginJudgement(@RequestParam String name, String password,HttpSession session) {
+
+        System.out.println("this is post request");
+
         boolean loginAble = userService.login_judgement(name,password);
+//        session.setAttribute("loginStatement",loginAble);
+
         if (loginAble==true) {
+            session.setAttribute("loginStatement","login");
             return new ModelAndView("redirect:/");
         }else {
              System.out.println("请输入正确的用户名和密码");

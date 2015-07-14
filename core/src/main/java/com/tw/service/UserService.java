@@ -34,7 +34,6 @@ public class UserService {
     }
 
     public boolean login_judgement(String name, String password) {
-//        UsrDao usrDao1 = new UsrDao();
         return usrDao.login_judgement(name, password);
     }
 

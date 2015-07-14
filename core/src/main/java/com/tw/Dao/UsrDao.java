@@ -38,7 +38,7 @@ public class UsrDao {
     public void delete_usr(int id){
         Usr usr = new Usr();
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();//开启操作数据库的事务
+        session.beginTransaction();
         usr.setId(id);
         session.delete(usr);
         session.getTransaction().commit();
@@ -55,7 +55,7 @@ public class UsrDao {
 
     public void update(Usr usr){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();//开启操作数据库的事务
+        session.beginTransaction();
         session.update(usr);
         session.getTransaction().commit();
         session.close();
@@ -63,7 +63,7 @@ public class UsrDao {
 
     public boolean login_judgement(String name, String password){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();//开启操作数据库的事务
+        session.beginTransaction();
 
 //        String sql = "select * from Usr usr where usr.name = :name and user.password = :password";
         Query query = session.createQuery("FROM Usr usr where usr.name = :name and usr.password = :password");
