@@ -1,12 +1,12 @@
-package com.tw.rooter;
-
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-import org.hibernate.Session;
-
-/**
- * Created by twer on 7/13/15.
- */
-public class LoginSession <S extends Session> {
+//package com.tw.util;
+//
+//import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+//import org.hibernate.Session;
+//
+///**
+// * Created by twer on 7/13/15.
+// */
+//public class LoginSession <S extends Session> {
 //    private SessionRepository<S> repository;
 //
 //    public void demo() {
@@ -24,4 +24,4 @@ public class LoginSession <S extends Session> {
 //        BIConversion.User user = session.getAttribute(ATTR_USER);
 //        assertThat(user).isEqualTo(rwinch);
 //    }
-}
+//}

@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <td>√‹¬Î:</td>
-            <td><input type="text" name="upass"></td>
+            <td><input type="text" name="password"></td>
         </tr>
         <tr>
             <td>&nbsp;</td>

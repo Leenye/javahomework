@@ -33,7 +33,4 @@ public class UserService {
         usrDao.update(usr);
     }
 
-
-
-
 }
