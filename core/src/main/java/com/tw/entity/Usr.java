@@ -9,6 +9,7 @@ public class Usr {
     private  String gender;
     private  int age;
     private  String email;
+    private  String password;
 
     public Usr() {
     }
@@ -18,6 +19,14 @@ public class Usr {
         this.gender = gender;
         this.age = age;
         this.email = email;
+    }
+
+    public Usr(String name, String gender, int age, String email, String password) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.email = email;
+        this.password = password;
     }
 
     public int getId() {
@@ -40,6 +49,8 @@ public class Usr {
         return name;
     }
 
+    public String getPassword() {return password;}
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -59,6 +70,12 @@ public class Usr {
     public void setAge(int age) {
         this.age = age;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 
     public Usr(int id, String name, String gender, int age, String email) {
         this.id = id;

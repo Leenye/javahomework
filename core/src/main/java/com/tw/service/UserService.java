@@ -33,4 +33,15 @@ public class UserService {
         usrDao.update(usr);
     }
 
+    public boolean login_judgement(String name, String password) {
+//        UsrDao usrDao1 = new UsrDao();
+        return usrDao.login_judgement(name, password);
+    }
+
+//
+//    public static void main(String[] args){
+//        UserService userService = new UserService();
+//        System.out.println(userService.login_judgement("aa", "111"));
+//    }
+
 }

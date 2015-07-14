@@ -48,10 +48,9 @@ public class UsrDao {
 
     public Usr get_element_by_id(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-//        session.beginTransaction();//开启操作数据库的事务
         Usr usr = (Usr) session.get(Usr.class,id);
+        session.close();
         return usr;
-
     }
 
     public void update(Usr usr){
@@ -60,6 +59,24 @@ public class UsrDao {
         session.update(usr);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public boolean login_judgement(String name, String password){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();//开启操作数据库的事务
+
+//        String sql = "select * from Usr usr where usr.name = :name and user.password = :password";
+        Query query = session.createQuery("FROM Usr usr where usr.name = :name and usr.password = :password");
+        query.setParameter("name",name);
+        query.setParameter("password",password);
+        List<Usr> usrs = query.list();
+        int usrsNum = usrs.size();
+        session.close();
+        if (usrsNum == 1){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

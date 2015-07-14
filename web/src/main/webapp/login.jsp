@@ -4,7 +4,7 @@
     <title>Login.jsp</title>
 </head>
 <body style="text-align: center">
-<form action="UserServlet" method="post">
+<form action="" method="post">
     <table border="2" cellpadding="4">
         </tr>
         <p>如果有已注册请直接登录</p>
@@ -13,7 +13,7 @@
 
         </tr>
         <td>用户名</td>
-        <td><input type="text" name="uname"/></td>
+        <td><input type="text" name="name"/></td>
 
         </tr>
         <tr>

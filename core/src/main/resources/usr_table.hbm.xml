@@ -15,6 +15,7 @@
         <property name="gender" column="gender"/>
         <property name="age" column="age"/>
         <property name="email" column="email"/>
+        <property name="password" column="password"/>
     </class>
 </hibernate-mapping>
 
