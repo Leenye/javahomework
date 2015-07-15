@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<a href="/web/login">退出</a>
+
 <h2>用户基本信息：</h2>
 
 <table border = 1 cellpadding=5>

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.tw.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 import javax.servlet.http.HttpSession;
-//import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by twer on 7/13/15.
@@ -20,26 +20,24 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/login")
 public class LoginController {
 
-//    @Autowired
-//    private HttpServletRequest request;
-
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public ModelAndView getUsers() {
+    public ModelAndView getUsers(HttpSession session) {
+        session.invalidate();
         return new ModelAndView("login");
     }
 
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public ModelAndView loginJudgement(@RequestParam String name, String password,HttpSession session) {
+    public ModelAndView loginJudgement(@RequestParam String name, String password,HttpSession session,
+                                       HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
 
-        System.out.println("this is post request");
+        boolean logined = userService.login_judgement(name, password);
 
-        boolean logined = userService.login_judgement(name,password);
         if (logined==true) {
             session.setAttribute("loginStatement","login");
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect: /" );
         }else {
              System.out.println("请输入正确的用户名和密码");
             return new ModelAndView("redirect:/login");

@@ -73,8 +73,6 @@ public class UsrDao {
 
 //        String sql = "select * from Usr usr where usr.name = :name and user.password = :password";
         Query query = session.createQuery("FROM Usr usr where usr.name = ? and usr.password = ?");
-        System.out.println(password);
-        System.out.println(MD5EncryptionHelper.stringMD5(password));
         query.setString(0,name);
         query.setString(1, MD5EncryptionHelper.stringMD5(password));
 //        query.setParameter("name",name);

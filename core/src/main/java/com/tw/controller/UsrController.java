@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -31,7 +34,8 @@ public class UsrController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email, HttpSession session) {
+    public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email, HttpSession session,
+                                   HttpServletRequest request,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
             Usr usr = new Usr(name, gender, age, email);
@@ -43,7 +47,8 @@ public class UsrController {
     }
 
     @RequestMapping(value = "/deleteUsr", method = RequestMethod.GET)
-    public ModelAndView deleteUsers(@RequestParam int id, HttpSession session) {
+    public ModelAndView deleteUsers(@RequestParam int id, HttpSession session,
+                                    HttpServletRequest request,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
             userService.delete_user(id);
@@ -51,20 +56,26 @@ public class UsrController {
         } else {
             return new ModelAndView("redirect:/login");
         }
-
     }
 
     @RequestMapping(value="/updateUsr",method = RequestMethod.GET)
-    public ModelAndView getElementById(@RequestParam int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("update");
-        Usr targetUsr = userService.get_element_by_id(id);
-        modelAndView.addObject("usr",targetUsr);
-        return modelAndView;
+    public ModelAndView getElementById(@RequestParam int id,HttpSession session) {
+
+        String loginStatement = (String) session.getAttribute("loginStatement");
+        if(loginStatement == "login"){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("update");
+            Usr targetUsr = userService.get_element_by_id(id);
+            modelAndView.addObject("usr", targetUsr);
+            return modelAndView;
+        }else{
+            return new ModelAndView("redirect:/login");
+        }
     }
 
     @RequestMapping(value="/updateUsr",method = RequestMethod.POST)
-    public ModelAndView updateUser(@RequestParam int id, String name, String gender, int age, String email,HttpSession session) {
+    public ModelAndView updateUser(@RequestParam int id, String name, String gender, int age, String email,HttpSession session,
+                                   HttpServletRequest request,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         if(loginStatement == "login"){
             Usr usr = new Usr(id,name,gender,age,email);
