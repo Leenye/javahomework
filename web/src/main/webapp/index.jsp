@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -25,8 +24,8 @@
         <td>${user.gender}</td>
         <td>${user.age}</td>
         <td>${user.email}</td>
-        <td><a href="/web/deleteUsr?id=${user.id}">删除</a></td>
-        <th><a href="/web/updateUsr?id=${user.id}">修改</a></th>
+        <td><a href="/web/deleteUsr/${user.id}">删除</a></td>
+        <th><a href="/web/updateUsr/${user.id}">修改</a></th>
 
     </tr>
 </c:forEach>

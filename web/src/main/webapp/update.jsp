@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<form action="/web/updateUsr?" method="post">
+<form action="/web/updateUsr/${usr.id}" method="post">
   <table >
 
     <tr>
