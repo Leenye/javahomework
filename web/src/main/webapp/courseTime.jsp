@@ -22,8 +22,8 @@
   <c:forEach items="${time}" var="time" >
     <tr>
       <td>${time.course_time}</td>
-      <td><a href="/web/timeCourse/${time.time_id}">删除</a></td>
-      <%--<th><a href="/web/update/${time.time_id}">修改</a></th>--%>
+      <td><a href="/web/courseTime/${time.time_id}">删除</a></td>
+      <%--<th><a href="/web/update/${time.id}">修改</a></th>--%>
     </tr>
   </c:forEach>
 </table>

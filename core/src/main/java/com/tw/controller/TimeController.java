@@ -61,10 +61,10 @@ public class TimeController {
         }
     }
 
-    @RequestMapping(value = "/deleteTime/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{time_id}", method = RequestMethod.GET)
     public ModelAndView deleteUsers(@PathVariable int time_id, HttpSession session, HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "/deleteTime/"+time_id);
+        Cookie cookie = new Cookie("lastVisited", "/courseTime/"+time_id);
         cookie.setPath("/");
         response.addCookie(cookie);
 

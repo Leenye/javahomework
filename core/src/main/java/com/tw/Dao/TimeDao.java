@@ -32,11 +32,11 @@ public class TimeDao {
         session.close();
     }
 
-    public void delete_time(int id){
+    public void delete_time(int time_id){
         Time time = new Time();
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        time.setTime_id(id);
+        time.setTime_id(time_id);
         session.delete(time);
         session.getTransaction().commit();
         session.close();
