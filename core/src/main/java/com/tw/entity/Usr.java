@@ -1,6 +1,8 @@
 package com.tw.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by twer on 7/8/15.
@@ -16,7 +18,7 @@ public class Usr {
     private  String password;
     private  String role;
     private String statement;
-
+//    private Set<Course> courses = new HashSet<Course>();
 
 
     @Id
@@ -28,6 +30,16 @@ public class Usr {
         this.id = id;
     }
 
+
+//    @OneToMany(mappedBy = "usr", cascade = (CascadeType.ALL))
+//    @OneToMany(mappedBy = "usr")
+//    public Set<Course> getCourses(){
+//        return courses;
+//    }
+//    public void setCourses(Set<Course> courses){
+//        this.courses = courses;
+//    }
+//
 
     @Column(name="name")
     public String getName() {

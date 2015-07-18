@@ -29,37 +29,40 @@ public class UsrDao {
     }
 
     public void insert_usr(Usr usr){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();//开启操作数据库的事务
         session.save(usr);
         session.getTransaction().commit();
-        session.close();
+//        session.close();
     }
 
     public void delete_usr(int id){
         Usr usr = new Usr();
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         usr.setId(id);
         session.delete(usr);
         session.getTransaction().commit();
-        session.close();
+//        session.close();
 
     }
 
     public Usr get_element_by_id(int id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
         Usr usr = (Usr) session.get(Usr.class,id);
-        session.close();
+        session.getTransaction().commit();
+
+//        session.close();
         return usr;
     }
 
     public void update(Usr usr){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.update(usr);
         session.getTransaction().commit();
-        session.close();
+//        session.close();
     }
 
 //    public static void main(String[] args) {
@@ -68,7 +71,7 @@ public class UsrDao {
 //    }
 
     public boolean login_judgement(String name, String password){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         Query query = session.createQuery("FROM Usr usr where usr.name = ? and usr.password = ?");
@@ -80,7 +83,9 @@ public class UsrDao {
 //        query.setParameter("password",password);
         List<Usr> usrs = query.list();
         int usrsNum = usrs.size();
-        session.close();
+        session.getTransaction().commit();
+
+//        session.close();
         if (usrsNum == 1){
             return true;
         }else {

@@ -19,12 +19,14 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!--&lt;!&ndash; Enable Hibernate's automatic session context management &ndash;&gt;-->
-        <!--<property name="current_session_context_class">thread</property>-->
+        <property name="current_session_context_class">thread</property>
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         <mapping class="com.tw.entity.Usr"/>
         <mapping class="com.tw.entity.Time"/>
+        <mapping class="com.tw.entity.Course"/>
+
 
 
 
