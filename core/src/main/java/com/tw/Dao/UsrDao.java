@@ -62,19 +62,20 @@ public class UsrDao {
         session.close();
     }
 
-    public static void main(String[] args) {
-        Usr user = new Usr(3, "lily", "m", 23, "1234@qq.com", MD5EncryptionHelper.stringMD5("111"));
-        new UsrDao().update(user);
-    }
+//    public static void main(String[] args) {
+//        Usr user = new Usr(3, "lily", "m", 23, "1234@qq.com", MD5EncryptionHelper.stringMD5("111"));
+//        new UsrDao().update(user);
+//    }
 
     public boolean login_judgement(String name, String password){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-//        String sql = "select * from Usr usr where usr.name = :name and user.password = :password";
         Query query = session.createQuery("FROM Usr usr where usr.name = ? and usr.password = ?");
         query.setString(0,name);
         query.setString(1, MD5EncryptionHelper.stringMD5(password));
+
+//        String sql = "select * from Usr usr where usr.name = :name and user.password = :password";
 //        query.setParameter("name",name);
 //        query.setParameter("password",password);
         List<Usr> usrs = query.list();

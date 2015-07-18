@@ -23,8 +23,13 @@
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
+        <mapping class="com.tw.entity.Usr"/>
+        <mapping class="com.tw.entity.Time"/>
 
-        <mapping resource="usr_table.hbm.xml" />
+
+
+
+        <!--<mapping resource="usr_table.hbm.xml" />-->
 
     </session-factory>
 
