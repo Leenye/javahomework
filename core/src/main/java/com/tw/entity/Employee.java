@@ -8,30 +8,30 @@ import java.util.Set;
  */
 @Entity
 @Table(name="employee_table")
-public class Employee {//employee_id
-    private int employee_id;
+public class Employee {
+    private int id;
+    private String name;
     private String role;
-    private Usr usr;
-
-
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usr_id")
-    public Usr getUsr(){
-        return usr;
-    }
-    public void setUsr(Usr usr){
-        this.usr = usr;
-    }
+    private String statement;
 
     @Id
-//    @GeneratedValue
-    @Column(name = "employee_id")
-    public int getEmployee_id(){
-        return employee_id;
+    @GeneratedValue
+    @Column(name = "id")
+    public int getId() {
+        return id;
     }
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Column(name="name")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Column(name="role")
@@ -40,5 +40,24 @@ public class Employee {//employee_id
     }
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Column(name="statement")
+    public String getStatement() {
+        return statement;
+    }
+
+    public void setStatement(String statement) {
+        this.statement = statement;
+    }
+
+    public Employee(){
+
+    }
+
+    public Employee(String name, String role, String statement) {
+        this.name = name;
+        this.role = role;
+        this.statement = statement;
     }
 }

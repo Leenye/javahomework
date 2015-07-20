@@ -35,7 +35,6 @@ public class LoginController {
                                        @RequestParam String name, String password,HttpSession session) throws UnsupportedEncodingException {
 
         boolean logined = userService.login_judgement(name, password);
-//        System.out.println(previousUrl);
 
         if (logined==true) {
             session.setAttribute("loginStatement","login");

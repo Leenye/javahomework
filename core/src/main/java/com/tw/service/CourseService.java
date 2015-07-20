@@ -17,10 +17,25 @@ public class CourseService {
     CourseDao courseDao;
 
     public List<Course> get_courses() {
-
-        System.out.println(courseDao.get_courses());
-
         return courseDao.get_courses();
     }
+
+    public void insert_course(Course course){
+        courseDao.insert_course(course);
+    }
+
+    public void delete_course(int id){
+        courseDao.delete_course(id);
+    }
+
+    public Course get_element_by_id(int id){
+      return   courseDao.get_element_by_id(id);
+    }
+
+    public void update_course(Course course){
+        courseDao.update(course);
+    }
+
+
 
 }

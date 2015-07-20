@@ -1,7 +1,9 @@
 package com.tw.controller;
 
+import com.tw.entity.Employee;
 import com.tw.entity.Usr;
 import com.tw.helper.MD5EncryptionHelper;
+import com.tw.service.EmployeeService;
 import com.tw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class UsrController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @RequestMapping(value = "",method = RequestMethod.GET)
     public ModelAndView getUsers(HttpSession session,HttpServletResponse response) {
 
@@ -40,7 +45,7 @@ public class UsrController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email,String password , String statement,
+    public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email,String password , int employee_id,
                                    HttpSession session,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "/");
@@ -49,7 +54,8 @@ public class UsrController {
 
         if (loginStatement == "login") {
            String ps = MD5EncryptionHelper.stringMD5(password);
-            Usr usr = new Usr(name, gender, age, email,ps,statement);
+            Employee emp = employeeService.get_element_by_id(employee_id);
+            Usr usr = new Usr(name, gender, age, email,ps,emp);
             userService.insert_users(usr);
             return new ModelAndView("redirect:/");
         } else {
@@ -93,14 +99,15 @@ public class UsrController {
     }
 
     @RequestMapping(value="/updateUsr/{id}",method = RequestMethod.POST)
-    public ModelAndView updateUser(@PathVariable int id, String name, String gender, int age, String email,String password,String statement,
+    public ModelAndView updateUser(@PathVariable int id, String name, String gender, int age, String email,String password,int employeeId,
                                    HttpSession session,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "/updateUsr/" +id);
         cookie.setPath("/");
         response.addCookie(cookie);
         if(loginStatement == "login"){
-            Usr usr = new Usr(id,name,gender,age,email,password,statement);
+            Employee emp = employeeService.get_element_by_id(employeeId);
+            Usr usr = new Usr(id,name,gender,age,email,password,emp);
             userService.update_user(usr);
             return new ModelAndView("redirect:/");
         }else{

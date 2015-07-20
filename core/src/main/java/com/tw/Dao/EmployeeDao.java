@@ -18,14 +18,46 @@ public class EmployeeDao {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();//开启操作数据库的事务
 
-//        String hql = "from Employee";
-//        Query query  = session.createQuery(hql);
-//        List<Employee> employees = query.list();
-//        Employee employee = (Employee) session.load(Employee.class, 1);
-//        System.out.println(employee.getRole()+ "------------");
+        Employee employee = (Employee) session.load(Employee.class, 1);
+        System.out.println(employee.getRole()+ "------------");
         List<Employee> employees = session.createQuery("from Employee").list();
         session.getTransaction().commit();
         return employees;
     }
+
+    public void insert_employee(Employee employee) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();//开启操作数据库的事务
+        session.save(employee);
+        session.getTransaction().commit();
+    }
+
+    public void delete_employee(int id) {
+        Employee employee = new Employee();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        employee.setId(id);
+        session.delete(employee);
+        session.getTransaction().commit();
+    }
+
+    public Employee get_element_by_id(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Employee employee = (Employee) session.get(Employee.class, id);
+        session.getTransaction().commit();
+        return employee;
+    }
+
+    public void update(Employee employee) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.update(employee);
+        session.getTransaction().commit();
+    }
+
+
+
+
 
 }

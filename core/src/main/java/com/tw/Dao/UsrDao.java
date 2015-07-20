@@ -25,7 +25,6 @@ public class UsrDao {
         Query query = session.createQuery(hql);
         List<Usr> usrs = query.list();
         session.getTransaction().commit();
-//        session.close();
         return usrs;
     }
 
@@ -34,7 +33,6 @@ public class UsrDao {
         session.beginTransaction();//开启操作数据库的事务
         session.save(usr);
         session.getTransaction().commit();
-//        session.close();
     }
 
     public void delete_usr(int id) {
@@ -44,7 +42,6 @@ public class UsrDao {
         usr.setId(id);
         session.delete(usr);
         session.getTransaction().commit();
-//        session.close();
 
     }
 
@@ -53,8 +50,6 @@ public class UsrDao {
         session.beginTransaction();
         Usr usr = (Usr) session.get(Usr.class, id);
         session.getTransaction().commit();
-
-//        session.close();
         return usr;
     }
 
@@ -63,13 +58,8 @@ public class UsrDao {
         session.beginTransaction();
         session.update(usr);
         session.getTransaction().commit();
-//        session.close();
     }
 
-//    public static void main(String[] args) {
-//        Usr user = new Usr(3, "lily", "m", 23, "1234@qq.com", MD5EncryptionHelper.stringMD5("111"));
-//        new UsrDao().update(user);
-//    }
 
     public boolean login_judgement(String name, String password) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -80,9 +70,6 @@ public class UsrDao {
         query.setString(0, name);
         query.setString(1, MD5EncryptionHelper.stringMD5(password));
 
-//        String sql = "select * from Usr usr where usr.name = :name and user.password = :password";
-//        query.setParameter("name",name);
-//        query.setParameter("password",password);
         List<Usr> usrs = query.list();
         usrsNum = usrs.size();
         session.getTransaction().commit();

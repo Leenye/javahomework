@@ -16,16 +16,18 @@ public class Usr {
     private  int age;
     private  String email;
     private  String password;
-    private String statement;
-//    private Employee employee;
+    private Employee employee;
 
-//    @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL)
-//    public Employee getEmployee(){
-//        return employee;
-//    }
-//    public void setEmployee(){
-//        this.employee = employee;
-//    }
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    public Employee getEmployee(){
+        return employee;
+    }
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
 
 
     @Id
@@ -82,15 +84,6 @@ public class Usr {
         this.email = email;
     }
 
-    @Column(name="statement")
-    public String getStatement() {
-        return statement;
-    }
-    public void setStatement(String statement) {
-        this.statement = statement;
-    }
-
-
 
     public Usr() {
     }
@@ -102,14 +95,13 @@ public class Usr {
         this.email = email;
     }
 
-    public Usr(String name, String gender, int age, String email, String password,String statement) {
+    public Usr(String name, String gender, int age, String email, String password ,Employee employee) {
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.email = email;
         this.password = password;
-        this.password = password;
-        this.statement = statement;
+        this.employee = employee;
 
     }
 
@@ -122,14 +114,14 @@ public class Usr {
         this.email = email;
     }
 
-    public Usr(int id, String name, String gender, int age, String email, String password,String statement) {
+    public Usr(int id, String name, String gender, int age, String email, String password ,Employee employee) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.email = email;
         this.password = password;
-        this.statement = statement;
+        this.employee = employee;
 
 
     }

@@ -17,13 +17,7 @@ public class CourseDao {
     public List<Course> get_courses() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        System.out.println("+++++++++++++++++++");
         Course course3 = (Course) session.load(Course.class, 3);
-        System.out.println(course3.getCourse_name()+ "------------");
-
-        System.out.println(course3.getEmployee().getEmployee_id()+ "------------");
-
-
         String hql = "from Course";
         Query query  = session.createQuery(hql);
 
@@ -31,6 +25,39 @@ public class CourseDao {
         session.getTransaction().commit();
         return courses;
     }
+
+    public void insert_course(Course course) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();//开启操作数据库的事务
+        session.save(course);
+        session.getTransaction().commit();
+    }
+
+    public void delete_course(int id) {
+        Course course = new Course();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        course.setId(id);
+        session.delete(course);
+        session.getTransaction().commit();
+    }
+
+    public Course get_element_by_id(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Course course = (Course) session.get(Course.class, id);
+        session.getTransaction().commit();
+        return course;
+    }
+
+    public void update(Course course) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.update(course);
+        session.getTransaction().commit();
+    }
+
+
 
 
 }

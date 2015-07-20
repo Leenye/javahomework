@@ -10,35 +10,42 @@ import java.util.Set;
 @Entity
 @Table(name="course_table")
 public class Course {
-    private  int course_id;
-    private String course_name;
+    private  int id;
+    private String name;
+    private String time;
     private  Employee employee;
-    private Set<Time> times;
-
 
     @Id
     @GeneratedValue
-    public int getCourse_id() {
-        return course_id;
+    public int getId() {
+        return id;
     }
 
-    public void setCourse_id(int course_id) {
-        this.course_id = course_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-
-    @Column(name="course_name")
-    public String getCourse_name() {
-        return course_name;
-    }
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    @Column(name="name")
+    public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Column(name="time")
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
 //    @ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne
-    @JoinColumn(name = "course_coach")
+    @JoinColumn(name = "coach_id")
     public Employee getEmployee() {
         return employee;
     }
@@ -46,22 +53,35 @@ public class Course {
         this.employee = employee;
     }
 
-    @ManyToMany
-    @JoinTable(name="course_time_table", joinColumns = {@JoinColumn(name = "relationship_course_id")},
-            inverseJoinColumns = {@JoinColumn(name = "relationship_time_id")})
-    public Set<Time> getTimes() {
-        return times;
+
+    public Course(){
+
     }
 
-    public void setTimes(Set<Time> times) {
-        this.times = times;
+    public Course(String name, String time, Employee employee) {
+        this.name = name;
+        this.time = time;
+        this.employee = employee;
     }
 
-
-
-
-    public Course() {
+    public Course(int id, String time, String name, Employee employee) {
+        this.id = id;
+        this.time = time;
+        this.name = name;
+        this.employee = employee;
     }
+
+    //
+//    @ManyToMany
+//    @JoinTable(name="course_time_table", joinColumns = {@JoinColumn(name = "relationship_course_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "relationship_time_id")})
+//    public Set<Time> getTimes() {
+//        return times;
+//    }
+//
+//    public void setTimes(Set<Time> times) {
+//        this.times = times;
+//    }
 
 
 }
