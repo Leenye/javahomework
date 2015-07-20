@@ -10,7 +10,7 @@
     <table border="2" cellpadding="4">
 
 
-        </tr>
+        <tr>
         <td>用户名</td>
         <td><input type="text" name="name"/></td>
 

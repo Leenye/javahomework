@@ -17,7 +17,6 @@
         <th>性别</th>
         <th>年龄</th>
         <th>邮箱</th>
-        <td>职称</td>
     </tr>
 <c:forEach items="${usrs}" var="user" >
     <tr>
@@ -25,7 +24,6 @@
         <td>${user.gender}</td>
         <td>${user.age}</td>
         <td>${user.email}</td>
-        <td>${user.role}</td>
 
         <td><a href="/web/deleteUsr/${user.id}">删除</a></td>
         <th><a href="/web/updateUsr/${user.id}">修改</a></th>
@@ -35,7 +33,7 @@
 </table>
 
 
-<form action="" method="post" style.display="none">
+<form action="" method="post">
     <table border="1">
 
         <tr>
@@ -44,7 +42,6 @@
             <td>年龄</td>
             <td>邮箱</td>
             <td>密码</td>
-            <td>职称</td>
             <td>状态</td>
         </tr>
 
@@ -54,7 +51,6 @@
             <td><input type="text" name="age" ></td>
             <td><input type="text" name="email"></td>
             <td><input type="text" name="password"></td>
-            <td><input type="text" name="role"></td>
             <td><input type="text" name="statement"></td>
 
         </tr>
@@ -63,8 +59,9 @@
     <input type="submit" value="添加系统用户"/>
 </form>
 
-<a href="/course">课程信息</a>
-<a href="/web/courseTime">课表信息</a>
+<a href="/web/employee">雇员信息</a>
+<a href="/web/courseTime">课程时间信息</a>
+<a href="/web/course">课程信息</a>
 <a href="/web/customer">顾客信息</a>
 
 

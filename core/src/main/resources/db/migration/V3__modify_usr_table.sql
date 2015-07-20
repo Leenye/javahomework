@@ -1,17 +1,32 @@
-ALTER TABLE usr_table ADD role VARCHAR(5) NOT NULL;
 ALTER TABLE usr_table ADD statement VARCHAR(5) NOT NULL DEFAULT TRUE ;
 
-INSERT INTO usr_table (name,gender,age,email,password,role,statement) VALUES ('朱江','M','12','123@hello',"698d51a19d8a121ce581499d7b701668","coach","InUse" );
-INSERT INTO usr_table (name,gender,age,email,password,role,statement) VALUES ('志慧','F','10','123@123',"698d51a19d8a121ce581499d7b701668","coach","InUse" );
-INSERT INTO usr_table (name,gender,age,email,password,role,statement) VALUES ('小明','M','9','john@123',"698d51a19d8a121ce581499d7b701668","coach","InUse");
-INSERT INTO usr_table (name,gender,age,email,password,role,statement) VALUES ('小崔','M','10','123@123',"698d51a19d8a121ce581499d7b701668","OP","InUse" );
-INSERT INTO usr_table (name,gender,age,email,password,role,statement) VALUES ('小娟','F','16','123@00',"698d51a19d8a121ce581499d7b701668","HR","InUse" );
+INSERT INTO usr_table (name,gender,age,email,password,statement) VALUES ('朱江','M','12','123@hello',"698d51a19d8a121ce581499d7b701668","InUse" );
+INSERT INTO usr_table (name,gender,age,email,password,statement) VALUES ('志慧','F','10','123@123',"698d51a19d8a121ce581499d7b701668","InUse" );
+INSERT INTO usr_table (name,gender,age,email,password,statement) VALUES ('小明','M','9','john@123',"698d51a19d8a121ce581499d7b701668","InUse");
+INSERT INTO usr_table (name,gender,age,email,password,statement) VALUES ('小崔','M','10','123@123',"698d51a19d8a121ce581499d7b701668","InUse" );
+INSERT INTO usr_table (name,gender,age,email,password,statement) VALUES ('小娟','F','16','123@00',"698d51a19d8a121ce581499d7b701668","InUse" );
+
+
+CREATE TABLE employee_table(
+  employee_id INT AUTO_INCREMENT primary key,
+  role VARCHAR(10) NOT NULL,
+  usr_id INT ,
+  FOREIGN KEY (usr_id) REFERENCES usr_table(id) ON DELETE CASCADE
+);
+
+INSERT INTO employee_table (usr_id,role) VALUES (1,"coach");
+INSERT INTO employee_table (usr_id,role) VALUES (2,"coach");
+INSERT INTO employee_table (usr_id,role) VALUES (3,"coach");
+INSERT INTO employee_table (usr_id,role) VALUES (4,"OPs");
+INSERT INTO employee_table (usr_id,role) VALUES (5,"HR");
+
+
 
 CREATE TABLE course_table (
   course_id INT AUTO_INCREMENT primary key,
   course_name VARCHAR(10) NOT NULL,
   course_coach INT NOT NULL,
-  FOREIGN KEY (course_coach) REFERENCES usr_table(id)
+  FOREIGN KEY (course_coach) REFERENCES employee_table(employee_id)
 );
 
 INSERT INTO course_table (course_name,course_coach) VALUES ('动感单车',1);

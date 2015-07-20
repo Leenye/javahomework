@@ -28,7 +28,6 @@ public class TimeController {
 
     @RequestMapping(value = "",method = RequestMethod.GET)
     public ModelAndView getTime(HttpSession session,HttpServletResponse response) {
-        System.out.println("进入curse time controller+++++++++++");
         Cookie cookie = new Cookie("lastVisited", "/courseTime");
         cookie.setPath("/");
         response.addCookie(cookie);

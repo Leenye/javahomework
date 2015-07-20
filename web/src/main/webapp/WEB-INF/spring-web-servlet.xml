@@ -9,16 +9,16 @@
                             http://www.springframework.org/schema/context
                             http://www.springframework.org/schema/context/spring-context.xsd ">
 
-    <bean
-            class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+    <!--<bean-->
+            <!--class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />-->
 
-    <!-- HandlerAdapter -->
-    <bean
-            class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+    <!--&lt;!&ndash; HandlerAdapter &ndash;&gt;-->
+    <!--<bean-->
+            <!--class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />-->
     <!-- ViewResolver -->
 
     <mvc:annotation-driven/>
-    <mvc:default-servlet-handler/>
+    <!--<mvc:default-servlet-handler/>-->
 
 
     <context:component-scan base-package="com.tw"/>

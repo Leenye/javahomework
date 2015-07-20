@@ -15,32 +15,31 @@ import java.util.List;
 public class TimeDao {
 
     public List<Time> get_time() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();//开启操作数据库的事务
 
         String hql = "from Time";
         Query query  = session.createQuery(hql);
         List<Time> time = query.list();
-        session.close();
+        session.getTransaction().commit();
+
         return time;
     }
 
     public void insert_time(Time time){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();//开启操作数据库的事务
         session.save(time);
         session.getTransaction().commit();
-        session.close();
     }
 
     public void delete_time(int time_id){
         Time time = new Time();
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         time.setTime_id(time_id);
         session.delete(time);
         session.getTransaction().commit();
-        session.close();
-
     }
 
 

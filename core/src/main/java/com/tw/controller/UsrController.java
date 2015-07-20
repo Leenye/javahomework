@@ -40,7 +40,7 @@ public class UsrController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email,String password,String role, String statement,
+    public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email,String password , String statement,
                                    HttpSession session,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "/");
@@ -49,7 +49,7 @@ public class UsrController {
 
         if (loginStatement == "login") {
            String ps = MD5EncryptionHelper.stringMD5(password);
-            Usr usr = new Usr(name, gender, age, email,ps,role,statement);
+            Usr usr = new Usr(name, gender, age, email,ps,statement);
             userService.insert_users(usr);
             return new ModelAndView("redirect:/");
         } else {
@@ -93,14 +93,14 @@ public class UsrController {
     }
 
     @RequestMapping(value="/updateUsr/{id}",method = RequestMethod.POST)
-    public ModelAndView updateUser(@PathVariable int id, String name, String gender, int age, String email,String password,String role,String statement,
+    public ModelAndView updateUser(@PathVariable int id, String name, String gender, int age, String email,String password,String statement,
                                    HttpSession session,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "/updateUsr/" +id);
         cookie.setPath("/");
         response.addCookie(cookie);
         if(loginStatement == "login"){
-            Usr usr = new Usr(id,name,gender,age,email,password,role,statement);
+            Usr usr = new Usr(id,name,gender,age,email,password,statement);
             userService.update_user(usr);
             return new ModelAndView("redirect:/");
         }else{

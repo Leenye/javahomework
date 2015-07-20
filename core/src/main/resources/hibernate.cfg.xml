@@ -20,13 +20,15 @@
 
         <!--&lt;!&ndash; Enable Hibernate's automatic session context management &ndash;&gt;-->
         <property name="current_session_context_class">thread</property>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        <!--<property name="hibernate.enable_lazy_load_no_trans">true</property>-->
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         <mapping class="com.tw.entity.Usr"/>
         <mapping class="com.tw.entity.Time"/>
         <mapping class="com.tw.entity.Course"/>
-
+        <mapping class="com.tw.entity.Employee"/>
 
 
 

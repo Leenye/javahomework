@@ -22,8 +22,8 @@ public class TimeService {
         timeDao.insert_time(time);
     }
 
-    public void delete_time(int id) {
-        timeDao.delete_time(id);
+    public void delete_time(int time_id) {
+        timeDao.delete_time(time_id);
     }
 
 }

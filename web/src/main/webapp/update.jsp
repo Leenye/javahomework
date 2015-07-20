@@ -32,7 +32,6 @@
       <td><input type="text" name="age" value="${usr.age}"></td>
       <td><input type="text" name="email" value="${usr.email}"></td>
       <td><input type="text" name="password" value="${usr.password}" hidden ></td>
-      <td><input type="text" name="role" value="${usr.role}" hidden ></td>
       <td><input type="text" name="statement" value="${usr.statement}" hidden ></td>
 
 

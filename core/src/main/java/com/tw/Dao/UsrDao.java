@@ -18,17 +18,18 @@ import java.util.List;
 public class UsrDao {
 
     public List<Usr> get_usrs() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();//开启操作数据库的事务
 
         String hql = "from Usr";
-        Query query  = session.createQuery(hql);
+        Query query = session.createQuery(hql);
         List<Usr> usrs = query.list();
-
-        session.close();
+        session.getTransaction().commit();
+//        session.close();
         return usrs;
     }
 
-    public void insert_usr(Usr usr){
+    public void insert_usr(Usr usr) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();//开启操作数据库的事务
         session.save(usr);
@@ -36,7 +37,7 @@ public class UsrDao {
 //        session.close();
     }
 
-    public void delete_usr(int id){
+    public void delete_usr(int id) {
         Usr usr = new Usr();
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -50,14 +51,14 @@ public class UsrDao {
     public Usr get_element_by_id(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Usr usr = (Usr) session.get(Usr.class,id);
+        Usr usr = (Usr) session.get(Usr.class, id);
         session.getTransaction().commit();
 
 //        session.close();
         return usr;
     }
 
-    public void update(Usr usr){
+    public void update(Usr usr) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.update(usr);
@@ -70,29 +71,29 @@ public class UsrDao {
 //        new UsrDao().update(user);
 //    }
 
-    public boolean login_judgement(String name, String password){
+    public boolean login_judgement(String name, String password) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        int usrsNum;
         session.beginTransaction();
 
         Query query = session.createQuery("FROM Usr usr where usr.name = ? and usr.password = ?");
-        query.setString(0,name);
+        query.setString(0, name);
         query.setString(1, MD5EncryptionHelper.stringMD5(password));
 
 //        String sql = "select * from Usr usr where usr.name = :name and user.password = :password";
 //        query.setParameter("name",name);
 //        query.setParameter("password",password);
         List<Usr> usrs = query.list();
-        int usrsNum = usrs.size();
+        usrsNum = usrs.size();
         session.getTransaction().commit();
 
-//        session.close();
-        if (usrsNum == 1){
-            return true;
-        }else {
-            return false;
+        boolean flag = false;
+        if (usrsNum == 1) {
+            flag = true;
         }
-    }
+        return flag;
 
+    }
 
 
 }

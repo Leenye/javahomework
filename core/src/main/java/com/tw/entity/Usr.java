@@ -16,9 +16,16 @@ public class Usr {
     private  int age;
     private  String email;
     private  String password;
-    private  String role;
     private String statement;
-//    private Set<Course> courses = new HashSet<Course>();
+//    private Employee employee;
+
+//    @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL)
+//    public Employee getEmployee(){
+//        return employee;
+//    }
+//    public void setEmployee(){
+//        this.employee = employee;
+//    }
 
 
     @Id
@@ -31,15 +38,7 @@ public class Usr {
     }
 
 
-//    @OneToMany(mappedBy = "usr", cascade = (CascadeType.ALL))
-//    @OneToMany(mappedBy = "usr")
-//    public Set<Course> getCourses(){
-//        return courses;
-//    }
-//    public void setCourses(Set<Course> courses){
-//        this.courses = courses;
-//    }
-//
+
 
     @Column(name="name")
     public String getName() {
@@ -83,15 +82,6 @@ public class Usr {
         this.email = email;
     }
 
-    @Column(name="role")
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-
     @Column(name="statement")
     public String getStatement() {
         return statement;
@@ -112,13 +102,12 @@ public class Usr {
         this.email = email;
     }
 
-    public Usr(String name, String gender, int age, String email, String password,String role,String statement) {
+    public Usr(String name, String gender, int age, String email, String password,String statement) {
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.password = password;
         this.statement = statement;
 
@@ -133,13 +122,12 @@ public class Usr {
         this.email = email;
     }
 
-    public Usr(int id, String name, String gender, int age, String email, String password,String role,String statement) {
+    public Usr(int id, String name, String gender, int age, String email, String password,String statement) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.email = email;
-        this.role = role;
         this.password = password;
         this.statement = statement;
 

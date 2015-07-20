@@ -1,6 +1,7 @@
 package com.tw.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by twer on 7/17/15.
@@ -10,6 +11,7 @@ import javax.persistence.*;
 public class Time {
     private  int time_id;
     private String course_time;
+    private Set<Course> courses;
 
     @Id
     @GeneratedValue
@@ -27,6 +29,16 @@ public class Time {
     }
     public void setCourse_time(String course_time) {
         this.course_time = course_time;
+    }
+
+
+    @ManyToMany(mappedBy = "times")
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 
 
