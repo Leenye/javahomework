@@ -17,7 +17,6 @@ public class CourseDao {
     public List<Course> get_courses() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Course course3 = (Course) session.load(Course.class, 3);
         String hql = "from Course";
         Query query  = session.createQuery(hql);
 

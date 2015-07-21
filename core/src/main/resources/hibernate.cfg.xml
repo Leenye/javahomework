@@ -28,6 +28,8 @@
         <mapping class="com.tw.entity.Usr"/>
         <mapping class="com.tw.entity.Employee"/>
         <mapping class="com.tw.entity.Course"/>
+        <mapping class="com.tw.entity.Customer"/>
+
 
 
 
