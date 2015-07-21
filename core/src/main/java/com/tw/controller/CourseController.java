@@ -4,6 +4,10 @@ import com.tw.entity.Course;
 import com.tw.entity.Employee;
 import com.tw.service.CourseService;
 import com.tw.service.EmployeeService;
+import com.tw.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by twer on 7/19/15.
@@ -46,26 +51,36 @@ public class CourseController {
 
     @RequestMapping(value = "",method = RequestMethod.POST)
     public ModelAndView insertCourse(@RequestParam String name,String time,int coach_id,
-                                       HttpSession session,HttpServletResponse response) {
+                                       HttpSession sessionHttp,HttpServletResponse response) {
         Cookie cookie = new Cookie("lastVisited", "/course");
         cookie.setPath("/");
         response.addCookie(cookie);
 
-        String loginStatement = (String) session.getAttribute("loginStatement");
+        String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
         if (loginStatement == "login") {
 
-//            Session sessionh = HibernateUtil.getSessionFactory().getCurrentSession();
-//            sessionh.beginTransaction();
-//
-//            String hql = "From Course course where course.employee.id = ? and course.time = ?";
-//            Query queryh = sessionh.createQuery(hql);
-//            queryh.setString(0, coach_id);
-//            queryh.setString(1, time);
+            Employee employee = employeeService.get_element_by_id(coach_id);
 
-            Employee emp = employeeService.get_element_by_id(coach_id);
-            Course course = new Course(name,time,emp);
-            courseService.insert_course(course);
-            return new ModelAndView("redirect:/course");
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            session.beginTransaction();
+            Criteria criteria = session.createCriteria(Course.class);
+            criteria.add(Restrictions.eq("employee", employee));
+            criteria.add(Restrictions.eq("time",time));
+            List<Course> list = criteria.list();
+            session.getTransaction().commit();
+
+
+
+            if (list.size() == 0){
+                Course course = new Course(name,time,employee);
+                courseService.insert_course(course);
+                return new ModelAndView("redirect:/course");
+
+            }else{
+
+                return new ModelAndView("redirect:/course");
+            }
+
         } else {
             return new ModelAndView("redirect:/login");
         }
@@ -101,8 +116,6 @@ public class CourseController {
             modelAndView.setViewName("courseUpdate");
             Course course =courseService.get_element_by_id(id);
             modelAndView.addObject("course", course);
-            System.out.println(course.getName().toString()+"++++++++++++++");
-            System.out.println(course.getTime().toString()+"_________________");
 
             return modelAndView;
         }else{
@@ -112,23 +125,67 @@ public class CourseController {
 
     @RequestMapping(value="/updateCourse/{id}",method = RequestMethod.POST)
     public ModelAndView updateUser(@PathVariable int id, @RequestParam String name,  @RequestParam String time,  @RequestParam int coach_id,
-                                   HttpSession session,HttpServletResponse response) {
-        String loginStatement = (String) session.getAttribute("loginStatement");
+                                   HttpSession sessionHttp,HttpServletResponse response) {
+        String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "/course/updateCourse/" +id);
         cookie.setPath("/");
         response.addCookie(cookie);
         if(loginStatement == "login"){
-            Employee emp = employeeService.get_element_by_id(coach_id);
-            System.out.println(name+"++++++++++++++++++++");
-            System.out.println(time+"________________________");
-            Course course = new Course(id,name,time,emp);
-             courseService.update_course(course);
-            return new ModelAndView("redirect:/course");
-        }else{
+
+            Employee employee = employeeService.get_element_by_id(coach_id);
+
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            session.beginTransaction();
+            Criteria criteria = session.createCriteria(Course.class);
+            criteria.add(Restrictions.eq("employee", employee));
+            criteria.add(Restrictions.eq("time",time));
+            List<Course> list = criteria.list();
+            session.getTransaction().commit();
+
+            if (list.size() == 0){
+                Course course = new Course(id,name,time,employee);
+                courseService.update_course(course);
+                return new ModelAndView("redirect:/course");
+
+            }else{
+
+                return new ModelAndView("redirect:/course");
+            }
+
+        } else {
             return new ModelAndView("redirect:/login");
         }
     }
 
 
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    public ModelAndView searchCourse(@RequestParam String time,int coach_id,
+                                     HttpSession sessionHttp,HttpServletResponse response) {
+        Cookie cookie = new Cookie("lastVisited", "/course");
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
+        if (loginStatement == "login") {
+
+            Employee employee = employeeService.get_element_by_id(coach_id);
+
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            session.beginTransaction();
+            Criteria criteria = session.createCriteria(Course.class);
+            criteria.add(Restrictions.eq("employee", employee));
+            criteria.add(Restrictions.eq("time", time));
+            List<Course> list = criteria.list();
+            session.getTransaction().commit();
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("course");
+            modelAndView.addObject("resultCourse", list);
+            return modelAndView;
+
+        } else {
+            return new ModelAndView("redirect:/login");
+        }
+    }
 
 }

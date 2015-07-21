@@ -73,6 +73,42 @@ public class EmployeeController {
     }
 
 
+    @RequestMapping(value="updateEmployee/{id}",method = RequestMethod.GET)
+    public ModelAndView getElementById(@PathVariable int id,HttpSession session,HttpServletResponse response) {
+
+        String loginStatement = (String) session.getAttribute("loginStatement");
+        Cookie cookie = new Cookie("lastVisited", "employee/updateEmployee/" + id);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        if(loginStatement == "login"){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("employeeUpdate");
+            Employee employee = employeeService.get_element_by_id(id);
+            modelAndView.addObject("employee", employee);
+            return modelAndView;
+        }else{
+            return new ModelAndView("redirect:/login");
+        }
+    }
+
+    @RequestMapping(value="updateEmployee/{id}",method = RequestMethod.POST)
+    public ModelAndView updateUser(@PathVariable int id, String name, String role, String statement,
+                                   HttpSession session,HttpServletResponse response) {
+        String loginStatement = (String) session.getAttribute("loginStatement");
+        Cookie cookie = new Cookie("lastVisited", "employee/updateEmployee/" +id);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        if(loginStatement == "login"){
+            Employee employee = new Employee(id,name,role,statement);
+            employeeService.update(employee);
+            return new ModelAndView("redirect:/employee");
+        }else{
+            return new ModelAndView("redirect:/login");
+        }
+    }
+
+
 
 
 

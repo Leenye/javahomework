@@ -31,7 +31,8 @@
       <td>${employee.statement}</td>
 
       <td><a href="/web/employee/deleteEmployee/${employee.id}">删除</a></td>
-        <%--<th><a href="/web/update/${time.id}">修改</a></th>--%>
+      <td><a href="/web/employee/updateEmployee/${employee.id}">更新</a></td>
+
     </tr>
   </c:forEach>
 </table>

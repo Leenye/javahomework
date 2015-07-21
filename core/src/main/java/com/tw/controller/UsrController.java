@@ -5,6 +5,10 @@ import com.tw.entity.Usr;
 import com.tw.helper.MD5EncryptionHelper;
 import com.tw.service.EmployeeService;
 import com.tw.service.UserService;
+import com.tw.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 /**
@@ -46,18 +51,33 @@ public class UsrController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email,String password , int employee_id,
-                                   HttpSession session,HttpServletResponse response) {
-        String loginStatement = (String) session.getAttribute("loginStatement");
+                                   HttpSession sessionHttp,HttpServletResponse response) {
+        String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "/user");
         cookie.setPath("/");
         response.addCookie(cookie);
 
         if (loginStatement == "login") {
            String ps = MD5EncryptionHelper.stringMD5(password);
-            Employee emp = employeeService.get_element_by_id(employee_id);
-            Usr usr = new Usr(name, gender, age, email,ps,emp);
-            userService.insert_users(usr);
-            return new ModelAndView("redirect:/user");
+
+            Employee employee = employeeService.get_element_by_id(employee_id);
+
+            Session session2 = HibernateUtil.getSessionFactory().getCurrentSession();
+            session2.beginTransaction();
+            Criteria criteria2 = session2.createCriteria(Usr.class);
+            criteria2.add(Restrictions.eq("employee", employee));
+            List<Usr> list2 = criteria2.list();
+            session2.getTransaction().commit();
+
+            if (employee != null&&list2.size()!=1){
+                Usr usr = new Usr(name, gender, age, email,ps,employee);
+                userService.insert_users(usr);
+                return new ModelAndView("redirect:/user");
+
+            }else {
+                return new ModelAndView("redirect:/user");
+            }
+
         } else {
             return new ModelAndView("redirect:/login");
         }
