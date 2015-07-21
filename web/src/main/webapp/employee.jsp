@@ -56,6 +56,7 @@
   <input type="submit" value="添加雇员"/>
 </form>
 
+<a href="/web">返回主页</a>
 
 </body>
 </html>

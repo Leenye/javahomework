@@ -21,7 +21,7 @@ public class UpdateServlet extends HttpServlet {
         Usr usr = new UsrDao().get_element_by_id(id);
         request.setAttribute("usr",usr);
 
-        RequestDispatcher de = request.getRequestDispatcher("update.jsp");
+        RequestDispatcher de = request.getRequestDispatcher("userUpdate.jsp");
         de.forward(request,response);
     }
 

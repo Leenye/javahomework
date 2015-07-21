@@ -101,6 +101,9 @@ public class CourseController {
             modelAndView.setViewName("courseUpdate");
             Course course =courseService.get_element_by_id(id);
             modelAndView.addObject("course", course);
+            System.out.println(course.getName().toString()+"++++++++++++++");
+            System.out.println(course.getTime().toString()+"_________________");
+
             return modelAndView;
         }else{
             return new ModelAndView("redirect:/login");
@@ -108,7 +111,7 @@ public class CourseController {
     }
 
     @RequestMapping(value="/updateCourse/{id}",method = RequestMethod.POST)
-    public ModelAndView updateUser(@PathVariable int id, String name, String time, int coach_id,
+    public ModelAndView updateUser(@PathVariable int id, @RequestParam String name,  @RequestParam String time,  @RequestParam int coach_id,
                                    HttpSession session,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "/course/updateCourse/" +id);
@@ -116,6 +119,8 @@ public class CourseController {
         response.addCookie(cookie);
         if(loginStatement == "login"){
             Employee emp = employeeService.get_element_by_id(coach_id);
+            System.out.println(name+"++++++++++++++++++++");
+            System.out.println(time+"________________________");
             Course course = new Course(id,name,time,emp);
              courseService.update_course(course);
             return new ModelAndView("redirect:/course");

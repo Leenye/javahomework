@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * Created by twer on 7/13/15.
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UsrController {
 
     @Autowired
@@ -32,13 +32,13 @@ public class UsrController {
     @RequestMapping(value = "",method = RequestMethod.GET)
     public ModelAndView getUsers(HttpSession session,HttpServletResponse response) {
 
-        Cookie cookie = new Cookie("lastVisited", "/");
+        Cookie cookie = new Cookie("lastVisited", "/user");
         cookie.setPath("/");
         response.addCookie(cookie);
 
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
-            return new ModelAndView("index", "usrs", userService.get_users());
+            return new ModelAndView("user", "usrs", userService.get_users());
         } else {
             return new ModelAndView("redirect:/login");
         }
@@ -48,7 +48,7 @@ public class UsrController {
     public ModelAndView insertUser(@RequestParam String name, String gender, int age, String email,String password , int employee_id,
                                    HttpSession session,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "/");
+        Cookie cookie = new Cookie("lastVisited", "/user");
         cookie.setPath("/");
         response.addCookie(cookie);
 
@@ -57,39 +57,39 @@ public class UsrController {
             Employee emp = employeeService.get_element_by_id(employee_id);
             Usr usr = new Usr(name, gender, age, email,ps,emp);
             userService.insert_users(usr);
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/user");
         } else {
             return new ModelAndView("redirect:/login");
         }
     }
 
-    @RequestMapping(value = "/deleteUsr/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "deleteUsr/{id}", method = RequestMethod.GET)
     public ModelAndView deleteUsers(@PathVariable int id, HttpSession session, HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "/deleteUsr/"+id);
+        Cookie cookie = new Cookie("lastVisited", "user/deleteUsr/"+id);
         cookie.setPath("/");
         response.addCookie(cookie);
 
         if (loginStatement == "login") {
             userService.delete_user(id);
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/user");
         } else {
             return new ModelAndView("redirect:/login");
         }
     }
 
-    @RequestMapping(value="/updateUsr/{id}",method = RequestMethod.GET)
+    @RequestMapping(value="updateUsr/{id}",method = RequestMethod.GET)
     public ModelAndView getElementById(@PathVariable int id,HttpSession session,HttpServletResponse response) {
 
         String loginStatement = (String) session.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "/updateUsr/" + id);
+        Cookie cookie = new Cookie("lastVisited", "user/updateUsr/" + id);
         cookie.setPath("/");
         response.addCookie(cookie);
 
 
         if(loginStatement == "login"){
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("update");
+            modelAndView.setViewName("userUpdate");
             Usr targetUsr = userService.get_element_by_id(id);
             modelAndView.addObject("usr", targetUsr);
             return modelAndView;
@@ -98,18 +98,18 @@ public class UsrController {
         }
     }
 
-    @RequestMapping(value="/updateUsr/{id}",method = RequestMethod.POST)
+    @RequestMapping(value="updateUsr/{id}",method = RequestMethod.POST)
     public ModelAndView updateUser(@PathVariable int id, String name, String gender, int age, String email,String password,int employeeId,
                                    HttpSession session,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "/updateUsr/" +id);
+        Cookie cookie = new Cookie("lastVisited", "user/updateUsr/" +id);
         cookie.setPath("/");
         response.addCookie(cookie);
         if(loginStatement == "login"){
             Employee emp = employeeService.get_element_by_id(employeeId);
             Usr usr = new Usr(id,name,gender,age,email,password,emp);
             userService.update_user(usr);
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/user");
         }else{
             return new ModelAndView("redirect:/login");
         }

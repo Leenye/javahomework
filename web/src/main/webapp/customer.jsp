@@ -50,6 +50,7 @@
   <input type="submit" value="添加顾客"/>
 </form>
 
+<a href="/web">返回主页</a>
 
 
 </body>

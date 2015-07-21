@@ -35,5 +35,4 @@ public class CustomerService {
         customerDao.update(customer);
     }
 
-
 }

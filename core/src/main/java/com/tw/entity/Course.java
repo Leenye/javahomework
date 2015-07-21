@@ -43,8 +43,7 @@ public class Course {
         this.time = time;
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coach_id")
     public Employee getEmployee() {
         return employee;
@@ -64,10 +63,10 @@ public class Course {
         this.employee = employee;
     }
 
-    public Course(int id, String time, String name, Employee employee) {
+    public Course(int id, String name, String time, Employee employee) {
         this.id = id;
-        this.time = time;
         this.name = name;
+        this.time = time;
         this.employee = employee;
     }
 

@@ -31,7 +31,7 @@ public class Customer {
         this.name = name;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coach_id")
     public Employee getEmployee() {
         return employee;
