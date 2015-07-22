@@ -43,14 +43,22 @@ public class CourseController {
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
 
-            return new ModelAndView("course", "courses", courseService.get_courses());
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("course");
+
+            List<Course> courses = courseService.get_courses();
+            List<Employee> employees = employeeService.get_employees();
+            modelAndView.addObject("courses", courses);
+            modelAndView.addObject("employees",employees);
+
+            return modelAndView;
         } else {
             return new ModelAndView("redirect:/login");
         }
     }
 
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public ModelAndView insertCourse(@RequestParam String name,String time,int coach_id,
+    public ModelAndView insertCourse(@RequestParam String name,String time,int  coach_id,
                                        HttpSession sessionHttp,HttpServletResponse response) {
         Cookie cookie = new Cookie("lastVisited", "/course");
         cookie.setPath("/");

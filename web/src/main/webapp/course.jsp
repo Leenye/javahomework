@@ -52,7 +52,26 @@
     <tr>
       <td><input type="text" name="name"></td>
       <td><input type="text" name="time"></td>
-      <td><input type="text" name="coach_id"></td>
+      <td>
+        <select name="coach_id">
+          <c:forEach items="${employees}" var="employee">
+          <option value="${employee.id}">${employee.name}</option>
+          </c:forEach>
+        </select>
+
+      </td>
+      <td><input type="text" name="employee" hidden></td>
+
+
+
+    <%--<td><input type="text" name="coach_id" list="coach_list"/>--%>
+        <%--<datalist id="coach_list">--%>
+          <%--<option>Detroit Lions</option>--%>
+          <%--<option>Detroit Pistons</option>--%>
+          <%--<option>Detroit Red Wings</option>--%>
+          <%--<option>Detroit Tigers</option>--%>
+        <%--</datalist>--%>
+
     </tr>
   </table>
 
