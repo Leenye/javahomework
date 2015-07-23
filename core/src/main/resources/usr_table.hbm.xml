@@ -5,7 +5,7 @@
 
 <!--<hibernate-mapping>-->
     <!--&lt;!&ndash;類別名稱與表格名稱映射&ndash;&gt;-->
-    <!--<class name="com.tw.entity.Usr" table="usr_table">-->
+    <!--<class name="com.tw.entity.Userr" table="usr_table">-->
         <!--&lt;!&ndash;id與主鍵映射&ndash;&gt;-->
         <!--<id name="id" column="id">-->
             <!--<generator class="native"/>-->

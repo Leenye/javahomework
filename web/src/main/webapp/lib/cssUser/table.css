@@ -1,0 +1,79 @@
+a :link{
+    color: darkgoldenrod;
+}
+a :visited{
+    color: #269abc;
+
+}
+a {
+    margin-right: 25px;
+    text-align: center;
+    text-decoration: none;
+    color: darkgoldenrod;
+}
+
+
+h1,h2,h3{
+    color: darkgoldenrod;
+    font-size:20px;
+    margin:0;
+
+}
+
+p {
+    font-size: 18px;
+    font-family: fantasy;
+    text-align: center;
+}
+p:hover{
+    color: #eb9316;
+}
+table{
+    margin: 0 auto;
+    margin-top: 16px;
+    border: 1px solid gold;
+
+    background-color: antiquewhite;
+    height: 35px;
+    color: peru;
+
+    font-size:18px;
+    text-align: center;
+}
+tr:hover{
+    background-color : khaki ;
+}
+td{
+    height:35px;
+}
+
+input[type="submit"] {
+    text-align: center;
+    margin-left: 675px;
+    background-color: antiquewhite;
+}
+
+.header{
+    height: 60px;
+    background-color: antiquewhite;
+    color: lightgoldenrodyellow;
+    padding-top: 22px;
+    padding-left: 40px;
+}
+
+.navbar{
+    height: 40px;
+    font-size: 17px;
+    background-color: khaki ;
+    padding-top: 30px;
+    padding-left: 40px;
+}
+
+.body{
+    background-image: url(./images/background.jpg);
+    height: 991px;
+}
+
+
+
+

@@ -1,9 +1,13 @@
 package com.tw.dao;
 
 import com.tw.entity.Customer;
+import com.tw.entity.Employee;
+import com.tw.entity.User;
 import com.tw.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,7 +23,6 @@ public class CustomerDao {
         session.beginTransaction();
         String hql = "from Customer";
         Query query  = session.createQuery(hql);
-
         List<Customer> customers = query.list();
         session.getTransaction().commit();
         return customers;
@@ -55,6 +58,33 @@ public class CustomerDao {
         session.update(customer);
         session.getTransaction().commit();
     }
+
+
+//    public boolean validationCheck(int employee_id){
+//        Employee emplolyee = new Employee();
+//
+//
+//        Session session1 = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session1.beginTransaction();
+//        Criteria criteria = session1.createCriteria(Employee.class);
+//        criteria.add(Restrictions.eq("employee", employee));
+//        List<Employee> list1 = criteria.list();
+//        session1.getTransaction().commit();
+//
+//        User user = new User();
+//        Session session2 = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session2.beginTransaction();
+//        Criteria criteria = session2.createCriteria(User.class);
+//        criteria.add(Restrictions.eq("employee", employee));
+//        List<Employee> list2 = criteria.list();
+//        session2.getTransaction().commit();
+//
+//        boolean flag = false;
+//        if (list1.size() == 1 && list2.size() == 0){
+//            flag = true;
+//        }
+//        return flag;
+//    }
 
 
 }

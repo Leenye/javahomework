@@ -39,15 +39,14 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public ModelAndView insertEmployee(@RequestParam String name,String role,String statement,
+    public ModelAndView insertEmployee(@RequestParam String name,String gender, int age, String email,String role,String statement,
                                        HttpSession session,HttpServletResponse response) {
         Cookie cookie = new Cookie("lastVisited", "/employee");
         cookie.setPath("/");
         response.addCookie(cookie);
-
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
-            Employee employee = new Employee(name,role,statement);
+            Employee employee = new Employee(name,gender,age,email,role,statement);
             employeeService.insert_employee(employee);
             return new ModelAndView("redirect:/employee");
         } else {
@@ -62,7 +61,6 @@ public class EmployeeController {
         Cookie cookie = new Cookie("lastVisited", "/employee");
         cookie.setPath("/");
         response.addCookie(cookie);
-
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
             employeeService.delete_employee(id);
@@ -72,15 +70,12 @@ public class EmployeeController {
         }
     }
 
-
     @RequestMapping(value="updateEmployee/{id}",method = RequestMethod.GET)
     public ModelAndView getElementById(@PathVariable int id,HttpSession session,HttpServletResponse response) {
-
         String loginStatement = (String) session.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "employee/updateEmployee/" + id);
         cookie.setPath("/");
         response.addCookie(cookie);
-
         if(loginStatement == "login"){
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("employeeUpdate");
@@ -93,25 +88,18 @@ public class EmployeeController {
     }
 
     @RequestMapping(value="updateEmployee/{id}",method = RequestMethod.POST)
-    public ModelAndView updateUser(@PathVariable int id, String name, String role, String statement,
+    public ModelAndView updateUser(@PathVariable int id, String name,String gender, int age, String email, String role, String statement,
                                    HttpSession session,HttpServletResponse response) {
         String loginStatement = (String) session.getAttribute("loginStatement");
         Cookie cookie = new Cookie("lastVisited", "employee/updateEmployee/" +id);
         cookie.setPath("/");
         response.addCookie(cookie);
         if(loginStatement == "login"){
-            Employee employee = new Employee(id,name,role,statement);
+            Employee employee = new Employee(id,name,gender,age,email,role,statement);
             employeeService.update(employee);
             return new ModelAndView("redirect:/employee");
         }else{
             return new ModelAndView("redirect:/login");
         }
     }
-
-
-
-
-
-
-
 }

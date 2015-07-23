@@ -33,9 +33,7 @@ public class LoginController {
     @RequestMapping(value = "",method = RequestMethod.POST)
     public ModelAndView loginJudgement(@CookieValue(value = "lastVisited", defaultValue = "") String previousUrl,
                                        @RequestParam String name, String password,HttpSession session) throws UnsupportedEncodingException {
-
         boolean logined = userService.login_judgement(name, password);
-
         if (logined==true) {
             session.setAttribute("loginStatement","login");
             return new ModelAndView("redirect:"+ previousUrl);
@@ -44,5 +42,4 @@ public class LoginController {
             return new ModelAndView("redirect:/login");
         }
     }
-
 }

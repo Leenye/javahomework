@@ -1,7 +1,14 @@
 package com.tw.service;
 
+import com.tw.dao.EmployeeDao;
 import com.tw.dao.CustomerDao;
 import com.tw.entity.Customer;
+import com.tw.entity.Employee;
+import com.tw.entity.User;
+import com.tw.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +22,8 @@ public class CustomerService {
 
     @Autowired
     CustomerDao customerDao;
+    @Autowired
+    EmployeeDao employeeDao;
 
     public List<Customer> get_customers() {
         return customerDao.get_customers();
@@ -34,5 +43,9 @@ public class CustomerService {
     public void update(Customer customer){
         customerDao.update(customer);
     }
+
+
+
+
 
 }

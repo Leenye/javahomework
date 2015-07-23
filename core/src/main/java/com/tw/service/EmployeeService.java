@@ -19,6 +19,7 @@ public class EmployeeService {
     public List<Employee> get_employees() {
         return employeeDao.get_employees();
     }
+
     public void insert_employee(Employee employee) {
        employeeDao.insert_employee(employee);
     }

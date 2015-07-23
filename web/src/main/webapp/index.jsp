@@ -4,19 +4,25 @@
 <html>
 <head>
     <title>健身房管理系统主页</title>
+    <link rel="stylesheet" href="lib/cssUser/table.css">
+
 </head>
 <body>
-<h3>健身房管理系统主页</h3>
-<p>欢迎进入系统</p>
+<div class="header">
+    <h3>健身房管理系统主页</h3>
+</div>
 
-<a href="/web/user">用户信息</a>
-<a href="/web/employee">雇员信息</a>
-<a href="/web/course">课程信息</a>
-<a href="/web/customer">顾客信息</a>
-
-<a href="/web/login">退出</a>
-
-
+<div class="navbar">
+    <a href="/web/user">用户信息</a>
+    <a href="/web/employee">雇员信息</a>
+    <a href="/web/course">课程信息</a>
+    <a href="/web/schema">课表信息</a>
+    <a href="/web/customer">顾客信息</a>
+    <a href="/web/login">退出</a>
+</div>
+<div class="body">
+<p>欢迎来到程序汪健身房</p>
+</div>
 
 </body>
 </html>

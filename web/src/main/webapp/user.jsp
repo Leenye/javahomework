@@ -9,65 +9,58 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>用户页面</title>
+  <link rel="stylesheet" href="lib/cssUser/table.css">
+
 </head>
 <body>
-
+<div class="header">
 <h2>系统用户信息：</h2>
+</div>
 
+<div class="navbar">
+  <a href="/web">返回主页</a>
+  <a href="/web/employee">雇员信息</a>
+  <a href="/web/course">课程信息</a>
+  <a href="/web/schema">课表信息</a>
+  <a href="/web/customer">顾客信息</a>
+  <a href="/web/login">退出</a>
+</div>
+
+<div class="body">
 <table border = 1 cellpadding=5>
   <tr>
     <th>姓名</th>
-    <th>性别</th>
-    <th>年龄</th>
-    <th>邮箱</th>
     <th>工号</th>
-
+    <th colspan="2">操作</th>
   </tr>
-  <c:forEach items="${usrs}" var="user" >
+  <c:forEach items="${users}" var="user" >
     <tr>
       <td>${user.name}</td>
-      <td>${user.gender}</td>
-      <td>${user.age}</td>
-      <td>${user.email}</td>
       <td>${user.employee.id}</td>
-
-      <td><a href="/web/user/deleteUsr/${user.id}">删除</a></td>
-      <th><a href="/web/user/updateUsr/${user.id}">修改</a></th>
-
+      <td><a href="/web/user/deleteUser/${user.id}">删除</a></td>
+      <th><a href="/web/user/updateUser/${user.id}">修改</a></th>
     </tr>
   </c:forEach>
 </table>
 
-
 <form action="" method="post">
   <table border="1">
-
     <tr>
       <td>姓名</td>
-      <td>性别</td>
-      <td>年龄</td>
-      <td>邮箱</td>
       <td>密码</td>
       <td>工号</td>
     </tr>
 
     <tr>
       <td><input type="text" name="name"></td>
-      <td><input type="text" name="gender"></td>
-      <td><input type="text" name="age" ></td>
-      <td><input type="text" name="email"></td>
       <td><input type="text" name="password"></td>
       <td><input type="text" name="employee_id"></td>
-
     </tr>
   </table>
-
   <input type="submit" value="添加系统用户"/>
 </form>
-
-<a href="/web">返回主页</a>
-
+</div>
 
 
 </body>

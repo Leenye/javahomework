@@ -15,14 +15,11 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-
     @RequestMapping(value = "",method = RequestMethod.GET)
     public ModelAndView getIndex(HttpSession session,HttpServletResponse response) {
-
         Cookie cookie = new Cookie("lastVisited", "/");
         cookie.setPath("/");
         response.addCookie(cookie);
-
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
             ModelAndView modelAndView = new ModelAndView();

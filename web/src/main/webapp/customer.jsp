@@ -10,48 +10,52 @@
 <html>
 <head>
     <title></title>
+  <link rel="stylesheet" href="lib/css/bootstrap.css">
 </head>
 <body>
+<div class="header">
+  <h3>顾客信息：</h3>
+</div>
 
-<table border=1 cellpadding=5>
+<div class="navbar-brand">
+  <a href="/web">返回主页</a>
+  <a href="/web/user">用户信息</a>
+  <a href="/web/employee">雇员信息</a>
+  <a href="/web/course">课程信息</a>
+  <a href="/web/schema">课表信息</a>
+  <a href="/web/login">退出</a>
+</div>
+
+<div class="table table-bordered">
+<table class="table table-bordered" >
   <tr>
     <td>姓名</td>
-    <td>教练</td>
-    <td>操作</td>
-
+    <td colspan="2">操作</td>
   </tr>
   <c:forEach items="${customers}" var="customer">
     <tr>
       <td>${customer.name}</td>
-      <td>${customer.employee.name}</td>
-
       <td><a href="/web/customer/deleteCustomer/${customer.id}">删除</a></td>
       <td><a href="/web/customer/updateCustomer/${customer.id}">修改</a></td>
-
     </tr>
   </c:forEach>
 </table>
 
 
-<form action="" method="post">
+<form class="form-group" action="" method="post">
   <table border="1">
-
     <tr>
       <td>顾客</td>
-      <td>教练ID</td>
     </tr>
 
     <tr>
       <td><input type="text" name="name"></td>
-      <td><input type="text" name="coach_id"></td>
     </tr>
   </table>
-
   <input type="submit" value="添加顾客"/>
 </form>
 
-<a href="/web">返回主页</a>
-
+</div>
 
 </body>
 </html>

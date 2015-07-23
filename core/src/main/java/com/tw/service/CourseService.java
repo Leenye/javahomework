@@ -2,6 +2,12 @@ package com.tw.service;
 
 import com.tw.dao.CourseDao;
 import com.tw.entity.Course;
+import com.tw.entity.Employee;
+import com.tw.entity.User;
+import com.tw.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +42,17 @@ public class CourseService {
         courseDao.update(course);
     }
 
-
-
+    public boolean validationCheck(String name){
+        boolean flag = false;
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Course.class);
+        criteria.add(Restrictions.eq("name", name));
+        List<Employee> list = criteria.list();
+        session.getTransaction().commit();
+        if (list.size() == 0) {
+            flag = true;
+        }
+        return flag;
+    }
 }

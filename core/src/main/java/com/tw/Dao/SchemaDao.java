@@ -1,6 +1,6 @@
 package com.tw.dao;
 
-import com.tw.entity.Employee;
+import com.tw.entity.Schema;
 import com.tw.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -9,53 +9,52 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by twer on 7/19/15.
+ * Created by twer on 7/23/15.
  */
 @Repository
-public class EmployeeDao {
+public class SchemaDao {
 
-    public List<Employee> get_employees() {
+    public List<Schema> get_schemas() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
+        String hql = "from Schema";
+        Query query  = session.createQuery(hql);
 
-        List<Employee> employees = session.createQuery("from Employee").list();
+        List<Schema> schemas = query.list();
         session.getTransaction().commit();
-        return employees;
+        return schemas;
     }
 
-    public void insert_employee(Employee employee) {
+    public void insert_schema(Schema schema) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();//开启操作数据库的事务
-        session.save(employee);
+        session.save(schema);
         session.getTransaction().commit();
     }
 
-    public void delete_employee(int id) {
-        Employee employee = new Employee();
+    public void delete_schema(int id) {
+        Schema schema = new Schema();
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        employee.setId(id);
-        session.delete(employee);
+        schema.setId(id);
+        session.delete(schema);
         session.getTransaction().commit();
     }
 
-    public Employee get_element_by_id(int id) {
+    public Schema get_element_by_id(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Employee employee = (Employee) session.get(Employee.class, id);
+        Schema schema = (Schema) session.get(Schema.class, id);
         session.getTransaction().commit();
-        return employee;
+        return schema;
     }
 
-    public void update(Employee employee) {
+    public void update(Schema schema) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        session.update(employee);
+        session.update(schema);
         session.getTransaction().commit();
     }
-
-
-
 
 
 }
