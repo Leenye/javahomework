@@ -63,6 +63,19 @@ public class SchemaController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
+//    public void insertSchema(@RequestParam int course_id, int coach_id, String time, String customer,
+//                                     HttpSession session1, HttpServletResponse response) {
+//        Cookie cookie = new Cookie("lastVisited", "/schema");
+//        cookie.setPath("/");
+//        response.addCookie(cookie);
+//        String loginStatement = (String) session1.getAttribute("loginStatement");
+//        if (loginStatement == "login" && schemaService.validationCheck(coach_id, time) ) {
+//                Employee employee = employeeService.get_element_by_id(coach_id);
+//                Course course = courseService.get_element_by_id(course_id);
+//                Schema schema = new Schema(course, employee, time, customer);
+//                schemaService.insert_schema(schema);
+//        }
+//    }
     public ModelAndView insertSchema(@RequestParam int course_id, int coach_id, String time, String customer,
                                      HttpSession session1, HttpServletResponse response) {
         Cookie cookie = new Cookie("lastVisited", "/schema");
@@ -84,23 +97,34 @@ public class SchemaController {
         }
     }
 
-    @RequestMapping(value = "/deleteSchema/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteSchema(@PathVariable int id,
-                                     HttpSession session, HttpServletResponse response) {
+    @RequestMapping(value = "/deleteSchema/{id}", method = RequestMethod.DELETE )
+    public void deleteSchema(@PathVariable int id, HttpSession session, HttpServletResponse response) {
         Cookie cookie = new Cookie("lastVisited", "/schema");
         cookie.setPath("/");
         response.addCookie(cookie);
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
+            System.out.println("+++++++++++++++++++++++删除信息");
             schemaService.delete_schema(id);
-            return new ModelAndView("redirect:/schema");
-        } else {
-            return new ModelAndView("redirect:/login");
         }
+
+
+//    public ModelAndView deleteSchema(@PathVariable int id,
+//                                     HttpSession session, HttpServletResponse response) {
+//        Cookie cookie = new Cookie("lastVisited", "/schema");
+//        cookie.setPath("/");
+//        response.addCookie(cookie);
+//        String loginStatement = (String) session.getAttribute("loginStatement");
+//        if (loginStatement == "login") {
+//            schemaService.delete_schema(id);
+//            return new ModelAndView("redirect:/schema");
+//        } else {
+//            return new ModelAndView("redirect:/login");
+//        }
     }
 
 
-    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.PUT)
     public ModelAndView getElementById(@PathVariable int id, HttpSession session, HttpServletResponse response) {
 
         String loginStatement = (String) session.getAttribute("loginStatement");

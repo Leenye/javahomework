@@ -15,7 +15,6 @@
 
 <form action="/web/schema/updateSchema/${schema.id}" method="post">
   <table >
-
     <tr>
       <td ></td>
       <td>课程</td>
