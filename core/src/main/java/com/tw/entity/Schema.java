@@ -14,7 +14,7 @@ public class Schema {
     private String time;
     private String customer;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "coach_id")
     public Employee getEmployee() {
         return employee;
@@ -24,7 +24,7 @@ public class Schema {
         this.employee = employee;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "course_id")
     public Course getCourse() {
         return course;

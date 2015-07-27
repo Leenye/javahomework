@@ -1,47 +1,57 @@
 $(function() {
-
     $('#updateSchema').hide();
     $('.delete_button').on('click', function () {
-        var id = $(this).attr('id');
-        console.log($(this).attr('id'));
-        $.ajax({
-            url: '/web/schema/deleteSchema/' + id,
-            type: 'DELETE',
-            dataType: 'text',
-            success: function () {
-                window.location.reload();
-            }
-        })
+        if(confirm("确定要删除吗？")){
+            var id = $(this).attr('id');
+            $.ajax({
+                url: '/web/schema/deleteSchema/' + id,
+                type: 'DELETE',
+                dataType: 'text',
+                success: function () {
+                    //this.closest("delete_button")remove();
+                    window.location.reload();
+                }
+            })
+        }
+
     });
 
     $('.update_button').on('click', function () {
-
         $('#updateSchema').show();
         var id = $(this).attr('id');
         $.ajax({
+            contentType: 'application/json; charset=utf-8',
             url: '/web/schema/updateSchema/' + id,
-            type: 'PUT',
-            dataType: 'text',
-            success: function () {
-                window.location.reload();
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                $('#course').text(data.course.name);
+                $("#employee").text(data.employee.name);
+                $("#time").text(data.time);
+                $("#customer").text(data.customer);
+                $("#id").val(data.id);
             }
-        })
-        //var id = $(this).closest('button').attr('id');
-        //$.ajax({
-        //    url: '/web/schema/updateSchema/' + id,
-        //    type: 'PUT',
-        //    dataType: 'text',
-        //    success: function(){
-        //        window.location.reload();
-        //        console.log("ok1");
-        //    }
-        //})
+        });
     });
+
+    $('#confirmUpdate_button').on('click', function () {
+        var dataString = $("#updateSchema").serialize();
+        var id = $('#id').val();
+          $.ajax({
+                url: '/web/schema/updateSchema/' + id,
+                type: 'PUT',
+                dataType: 'text',
+                data: dataString,
+                success: function () {
+                    window.location= '/web/schema/';
+                }
+            });
+
+    });
+
+
+
 });
 
-//    function confirmDelete() {
-//      if (window.confirm("确认要删除本条信息！")) {
-//        return true;
-//      }
-//      return false;
-//    }
+

@@ -19,7 +19,7 @@
   </div>
   <div class="body">
     <form id="updateSchema" >
-      <table>
+      <table border="1" cellpadding="5">
         <tr>
           <td></td>
           <td>课程</td>
@@ -27,22 +27,20 @@
           <td>时间</td>
           <td>学员</td>
         </tr>
-
         <tr>
           <td></td>
-          <td>${schema.name}</td>
-          <td>${schema.employee.name}</td>
-          <td>${schema.time}</td>
-          <td>${schema.customer}</td>
+          <td id = "course"></td>
+          <td id = "employee"></td>
+          <td id = "time"></td>
+          <td id ="customer"></td>
         </tr>
-
         <tr>
-          <td><input type="text" name="id" value="${schema.id}" hidden></td>
+          <td><input type="text" id="id" name="id" hidden></td>
           <td>
             <select name="course_id">
               <c:forEach items="${courses}" var="course">
                 <option value="${course.id}">${course.name}</option>
-              </c:forEach>
+              </c:forEach>F
             </select>
           </td>
           <td>
@@ -56,7 +54,9 @@
           <td><input type="text" name="customer" value="${schema.customer}"></td>
         </tr>
       </table>
-      <input type="submit" value="确定修改"/>
+      <button id="confirmUpdate_button" >确定修改</button>
+
+      <%--<input type="submit" value="确定修改"/>--%>
     </form>
     <table border="1" cellpadding="5">
       <tr>

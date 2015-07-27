@@ -8,16 +8,10 @@ import com.tw.service.CoachService;
 import com.tw.service.CourseService;
 import com.tw.service.EmployeeService;
 import com.tw.service.SchemaService;
-import com.tw.util.HibernateUtil;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -25,10 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-/**
- * Created by twer on 7/23/15.
- */
-@Controller
+@RestController
 @RequestMapping("/schema")
 public class SchemaController {
 
@@ -104,69 +95,61 @@ public class SchemaController {
         response.addCookie(cookie);
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
-            System.out.println("+++++++++++++++++++++++删除信息");
             schemaService.delete_schema(id);
         }
+    }
 
 
-//    public ModelAndView deleteSchema(@PathVariable int id,
-//                                     HttpSession session, HttpServletResponse response) {
-//        Cookie cookie = new Cookie("lastVisited", "/schema");
+    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.GET)
+    public @ResponseBody Schema getElementById(@PathVariable int id, HttpSession session, HttpServletResponse response) {
+        Cookie cookie = new Cookie("lastVisited", "/schema/updateSchema/" + id);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        String loginStatement = (String) session.getAttribute("loginStatement");
+        Schema schema = new Schema();
+        if (loginStatement == "login") {
+            schema = schemaService.get_element_by_id(id);
+        }
+        return schema;
+    }
+
+    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public void updateSchema(@PathVariable int id, @RequestParam int course_id, int coach_id, String time, String customer,
+                             HttpSession session, HttpServletResponse response) {
+        System.out.println(id+course_id+"++++++++++++++++++++++++");
+        Cookie cookie = new Cookie("lastVisited", "/schema");
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        String loginStatement = (String) session.getAttribute("loginStatement");
+        if (loginStatement == "login") {
+            Course course = courseService.get_element_by_id(course_id);
+            Employee employee = employeeService.get_element_by_id(coach_id);
+            Schema schema = new Schema(id, course, employee, time, customer);
+            schemaService.update_schema(schema);
+        }
+    }
+
+//    public ModelAndView updateSchema(@PathVariable int id, @RequestParam int course_id, int coach_id, String time, String customer,
+//                                   HttpSession sessionHttp, HttpServletResponse response) {
+//        String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
+//        Cookie cookie = new Cookie("lastVisited", "/schema/updateSchema/" + id);
 //        cookie.setPath("/");
 //        response.addCookie(cookie);
-//        String loginStatement = (String) session.getAttribute("loginStatement");
 //        if (loginStatement == "login") {
-//            schemaService.delete_schema(id);
-//            return new ModelAndView("redirect:/schema");
+//            if (schemaService.validationCheck(coach_id, time)) {
+//                Course course = courseService.get_element_by_id(course_id);
+//                Employee employee = employeeService.get_element_by_id(coach_id);
+//                Schema schema = new Schema(id, course, employee, time, customer);
+//                schemaService.update_schema(schema);
+//                return new ModelAndView("redirect:/schema");
+//            } else {
+//                return new ModelAndView("redirect:/schema");
+//            }
 //        } else {
 //            return new ModelAndView("redirect:/login");
 //        }
-    }
-
-
-    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.PUT)
-    public ModelAndView getElementById(@PathVariable int id, HttpSession session, HttpServletResponse response) {
-
-        String loginStatement = (String) session.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "/schema/updateSchema/" + id);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        if (loginStatement == "login") {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("schemaUpdate");
-            List<Coach> employees = coachService.get_coaches();
-            List<Course> courses = courseService.get_courses();
-            Schema schema = schemaService.get_element_by_id(id);
-            modelAndView.addObject("schema", schema);
-            modelAndView.addObject("courses", courses);
-            modelAndView.addObject("employees", employees);
-            return modelAndView;
-        } else {
-            return new ModelAndView("redirect:/login");
-        }
-    }
-
-    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.POST)
-    public ModelAndView updateUser(@PathVariable int id, @RequestParam int course_id, int coach_id, String time, String customer,
-                                   HttpSession sessionHttp, HttpServletResponse response) {
-        String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "/schema/updateSchema/" + id);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        if (loginStatement == "login") {
-            if (schemaService.validationCheck(coach_id, time)) {
-                Course course = courseService.get_element_by_id(course_id);
-                Employee employee = employeeService.get_element_by_id(coach_id);
-                Schema schema = new Schema(id, course, employee, time, customer);
-                schemaService.update_schema(schema);
-                return new ModelAndView("redirect:/schema");
-            } else {
-                return new ModelAndView("redirect:/schema");
-            }
-        } else {
-            return new ModelAndView("redirect:/login");
-        }
-    }
+//    }
 
 
 //        @RequestMapping(value = "/search",method = RequestMethod.POST)
