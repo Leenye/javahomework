@@ -88,7 +88,7 @@ public class SchemaController {
         }
     }
 
-    @RequestMapping(value = "/deleteSchema/{id}", method = RequestMethod.DELETE )
+    @RequestMapping(value = "/deleteSchema/{id}", method = RequestMethod.DELETE)
     public void deleteSchema(@PathVariable int id, HttpSession session, HttpServletResponse response) {
         Cookie cookie = new Cookie("lastVisited", "/schema");
         cookie.setPath("/");
@@ -100,33 +100,32 @@ public class SchemaController {
     }
 
 
-    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.GET)
-    public @ResponseBody Schema getElementById(@PathVariable int id, HttpSession session, HttpServletResponse response) {
-        Cookie cookie = new Cookie("lastVisited", "/schema/updateSchema/" + id);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        String loginStatement = (String) session.getAttribute("loginStatement");
-        Schema schema = new Schema();
-        if (loginStatement == "login") {
-            schema = schemaService.get_element_by_id(id);
-        }
-        return schema;
-    }
+//    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.GET)
+//    public @ResponseBody Schema getElementById(@PathVariable int id, HttpSession session, HttpServletResponse response) {
+//        Cookie cookie = new Cookie("lastVisited", "/schema/updateSchema/" + id);
+//        cookie.setPath("/");
+//        response.addCookie(cookie);
+//        String loginStatement = (String) session.getAttribute("loginStatement");
+//        Schema schema = new Schema();
+//        if (loginStatement == "login") {
+//            schema = schemaService.get_element_by_id(id);
+//        }
+//        return schema;
+//    }
 
-    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    public void updateSchema(@PathVariable int id, @RequestParam int course_id, int coach_id, String time, String customer,
+    @RequestMapping(value = "/updateSchema", method = RequestMethod.POST)
+//    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Schema updateSchema(@RequestParam int id, @RequestParam int course_id, int coach_id, String time, String customer,
                              HttpSession session, HttpServletResponse response) {
-        System.out.println(id+course_id+"++++++++++++++++++++++++");
         Cookie cookie = new Cookie("lastVisited", "/schema");
         cookie.setPath("/");
         response.addCookie(cookie);
-        String loginStatement = (String) session.getAttribute("loginStatement");
-        if (loginStatement == "login") {
-            Course course = courseService.get_element_by_id(course_id);
-            Employee employee = employeeService.get_element_by_id(coach_id);
-            Schema schema = new Schema(id, course, employee, time, customer);
-            schemaService.update_schema(schema);
+
+        Course course = courseService.get_element_by_id(course_id);
+        Employee employee = employeeService.get_element_by_id(coach_id);
+        Schema schema = new Schema(id, course, employee, time, customer);
+        schemaService.update_schema(schema);
+        return schema;
         }
     }
 
@@ -183,4 +182,3 @@ public class SchemaController {
 //        }
 
 
-}

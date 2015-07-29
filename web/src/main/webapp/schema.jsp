@@ -29,22 +29,21 @@
         </tr>
         <tr>
           <td></td>
-          <td id = "course"></td>
-          <td id = "employee"></td>
+          <td ></td>
           <td id = "time"></td>
           <td id ="customer"></td>
         </tr>
         <tr>
           <td><input type="text" id="id" name="id" hidden></td>
-          <td>
-            <select name="course_id">
+          <td >
+            <select  name="course_id">
               <c:forEach items="${courses}" var="course">
                 <option value="${course.id}">${course.name}</option>
               </c:forEach>F
             </select>
           </td>
-          <td>
-            <select name="coach_id">
+          <td >
+            <select  name="coach_id">
               <c:forEach items="${employees}" var="employee">
                 <option value="${employee.id}">${employee.name}</option>
               </c:forEach>
@@ -67,19 +66,18 @@
         <td colspan="2">操作</td>
       </tr>
       <c:forEach items="${schemas}" var="schema">
+
         <tr>
-          <td>${schema.course.name}</td>
-          <td>${schema.employee.name}</td>
-          <td>${schema.time}</td>
-          <td>${schema.customer}</td>
+          <td id="courseName" class="course-name">${schema.course.name}</td>
+          <td id="coachName" class="coach-name">${schema.employee.name}</td>
+          <td id="courseTime" class="course-time">${schema.time}</td>
+          <td id="courseCustomer">${schema.customer}</td>
           <td>
             <button class="delete_button" id="${schema.id}">删除</button>
           </td>
           <td>
             <button class="update_button" id="${schema.id}">修改</button>
           </td>
-
-
         </tr>
       </c:forEach>
     </table>
@@ -119,7 +117,7 @@
     </form>
   </div>
   <spring:url value="/lib/js/jquery-1.11.1.min.js" var="jquery"/>
-  <spring:url value="/lib/js/schema.js" var="schemaJs"/>
+  <spring:url value="/js/schema.js" var="schemaJs"/>
   <script src="${jquery}"></script>
   <script src="${schemaJs}"></script>
 </body>
