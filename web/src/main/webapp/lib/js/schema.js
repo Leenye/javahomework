@@ -1,19 +1,21 @@
 $(function() {
+    var course;
     $('#updateSchema').hide();
     $('.delete_button').on('click', function () {
+        course = this;
         if(confirm("确定要删除吗？")){
             var id = $(this).attr('id');
             $.ajax({
                 url: '/web/schema/deleteSchema/' + id,
                 type: 'DELETE',
                 dataType: 'text',
-                success: function () {
-                    //this.closest("delete_button")remove();
-                    window.location.reload();
+                success: function (data) {
+                    alert(this);
+                    alert(data);
+                    course.closest('tr').remove();
                 }
             })
         }
-
     });
 
     $('.update_button').on('click', function () {
@@ -21,11 +23,10 @@ $(function() {
         var id = $(this).attr('id');
         $.ajax({
             contentType: 'application/json; charset=utf-8',
-            url: '/web/schema/updateSchema/' + id,
+            url: '/web/schema/updateSchema/'+id,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log(data);
                 $('#course').text(data.course.name);
                 $("#employee").text(data.employee.name);
                 $("#time").text(data.time);
@@ -35,23 +36,28 @@ $(function() {
         });
     });
 
-    $('#confirmUpdate_button').on('click', function () {
-        var dataString = $("#updateSchema").serialize();
+    $('#confirmUpdate_button').on('click', function (e) {
         var id = $('#id').val();
-          $.ajax({
-                url: '/web/schema/updateSchema/' + id,
-                type: 'PUT',
-                dataType: 'text',
-                data: dataString,
-                success: function () {
-                    window.location= '/web/schema/';
-                }
-            });
+        alert('id');
 
+        var dataString = $("#updateSchema").serialize();
+        //alert(id);
+        $.ajax({
+            url: '/web/schema/updateSchema/'+id,
+            type: 'POST',
+            data: dataString,
+            dataType: 'text',
+            success: function () {
+                alert("修改成功");
+                window.location = 'http://localhost:8080/web/schema';
+            },
+            error: function () {
+                alert(" 课程已存在，请输入其他课程");
+                return;
+            }
+
+        });
     });
-
-
-
 });
 
 

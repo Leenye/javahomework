@@ -34,18 +34,28 @@ public class UserController {
     private EmployeeService employeeService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView getUsers(HttpSession session, HttpServletResponse response) {
+        public List<User> getUsers(HttpSession session, HttpServletResponse response) {
         Cookie cookie = new Cookie("lastVisited", "/user");
         cookie.setPath("/");
         response.addCookie(cookie);
-
         String loginStatement = (String) session.getAttribute("loginStatement");
-        if (loginStatement == "login") {
-            return new ModelAndView("user", "users", userService.get_users());
-        } else {
-            return new ModelAndView("redirect:/login");
-        }
+        List<User> users = userService.get_users();
+        return users;
     }
+
+
+//    public ModelAndView getUsers(HttpSession session, HttpServletResponse response) {
+//        Cookie cookie = new Cookie("lastVisited", "/user");
+//        cookie.setPath("/");
+//        response.addCookie(cookie);
+//
+//        String loginStatement = (String) session.getAttribute("loginStatement");
+//        if (loginStatement == "login") {
+//            return new ModelAndView("user", "users", userService.get_users());
+//        } else {
+//            return new ModelAndView("redirect:/login");
+//        }
+//    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView insertUser(@RequestParam String name, String password, int employee_id,

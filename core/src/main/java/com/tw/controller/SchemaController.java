@@ -10,7 +10,6 @@ import com.tw.service.EmployeeService;
 import com.tw.service.SchemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -89,14 +88,17 @@ public class SchemaController {
     }
 
     @RequestMapping(value = "/deleteSchema/{id}", method = RequestMethod.DELETE )
-    public void deleteSchema(@PathVariable int id, HttpSession session, HttpServletResponse response) {
+//    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody  String deleteSchema(@PathVariable int id, HttpSession session, HttpServletResponse response) {
         Cookie cookie = new Cookie("lastVisited", "/schema");
         cookie.setPath("/");
         response.addCookie(cookie);
         String loginStatement = (String) session.getAttribute("loginStatement");
         if (loginStatement == "login") {
             schemaService.delete_schema(id);
+            return "ok";
         }
+        return null;
     }
 
 
@@ -113,7 +115,7 @@ public class SchemaController {
         return schema;
     }
 
-    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateSchema/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void updateSchema(@PathVariable int id, @RequestParam int course_id, int coach_id, String time, String customer,
                              HttpSession session, HttpServletResponse response) {

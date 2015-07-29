@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body ng-app="user_management">
+<div class="navbar">
+    <list><a href="#/user">用户信息</a></list>
+    <list><a href="#/employee">雇员信息</a></list>
+    <list><a href="#course">课程信息</a></list>
+    <list><a href="#/schema">课表信息</a></list>
+    <list><a href="#/customer">顾客信息</a></list>
+    <list><a href="#/login">退出</a></list>
+
+</div>
+
+<div ng-view=""></div>
+
+<script src="lib/js/jquery-1.11.1.min.js"></script>
+<script src="lib/js/angular/angular.js"></script>
+<script src="lib/js/angular/angular-route.min.js"></script>
+<script src="angularApp/app.js"></script>
+<script src="angularApp/controllers/userController.js"></script>
+<div ng-view></div>
+</body>
+</html>

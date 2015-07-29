@@ -1,0 +1,39 @@
+<div class="body" ng-app="">
+    <table >
+        <tr>
+            <th>姓名</th>
+            <th>工号</th>
+            <th colspan="2">操作</th>
+        </tr>
+        <tr ng-repeat="user in users">
+            <td>{{user.name}}</td>
+            <td>{{user.employee.name}}</td>
+            <td>
+                <a href="/web/user/updateUser/{{user.id}}">修改</a>
+            </td>
+            <td>
+                <a ng-click="deleteUser(user.id)">删除</a>
+            </td>
+        </tr>
+
+    </table>
+
+    <!--<form action="" method="post">-->
+    <!--<table border="1">-->
+    <!--<tr>-->
+    <!--<td>姓名</td>-->
+    <!--<td>密码</td>-->
+    <!--<td>工号</td>-->
+    <!--</tr>-->
+    <!-- -->
+
+    <!--<tr>-->
+    <!--<td><input type="text" name="name"></td>-->
+    <!--<td><input type="text" name="password"></td>-->
+    <!--<td><input type="text" name="employee_id"></td>-->
+    <!--</tr>-->
+    <!--</table>-->
+    <!--<input type="submit" value="添加系统用户"/>-->
+    <!--</form>-->
+</div>
+

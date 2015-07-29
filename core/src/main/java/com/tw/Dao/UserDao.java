@@ -74,7 +74,7 @@ public class UserDao {
         usrsNum = users.size();
         session.getTransaction().commit();
 
-        boolean flag = false;
+        boolean flag = true;
         if (usrsNum == 1) {
             flag = true;
         }
