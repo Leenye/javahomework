@@ -1,13 +1,13 @@
-angular.module('user_management', ['ngRoute'])
+angular.module('myApp', ['ngRoute'])
     .config(function ($routeProvider) {
         $routeProvider
-            .when('')
             .when('/user', {
-                templateUrl: '#/views/user.html',
+                templateUrl: '/web/angularApp/views/user.html',
                 controller: 'userController'
             })
-            .otherwise({
-                redirectTo: '/111111'
-            })
+
+            //.otherwise({
+            //    redirectTo: '/111111'
+            //})
 
     });

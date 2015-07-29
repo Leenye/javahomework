@@ -1,10 +1,13 @@
 package com.tw.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tw.entity.Employee;
 import com.tw.entity.User;
 import com.tw.helper.MD5EncryptionHelper;
 import com.tw.service.EmployeeService;
 import com.tw.service.UserService;
+import com.tw.util.HibernateProxyTypeAdapter;
 import com.tw.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -33,31 +36,41 @@ public class UserController {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-        public List<User> getUsers(HttpSession session, HttpServletResponse response) {
-        Cookie cookie = new Cookie("lastVisited", "/user");
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        String loginStatement = (String) session.getAttribute("loginStatement");
-        List<User> users = userService.get_users();
-        return users;
-    }
+    private Gson gson = new GsonBuilder()
+//            .excludeFieldsWithoutExposeAnnotation() //不导出实体中没有用@Expose注解的属性
+            .enableComplexMapKeySerialization() //支持Map的key为复杂对象的形式
+            .serializeNulls().setDateFormat("yyyy-MM-dd HH:mm:ss:SSS")//时间转化为特定格式
+//                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)//会把字段首字母大写,注:对于实体上使用了@SerializedName注解的不会生效.
+            .setPrettyPrinting() //对json结果格式化.
+            .setVersion(1.0)    //有的字段不是一开始就有的,会随着版本的升级添加进来,那么在进行序列化和返序列化的时候就会根据版本号来选择是否要序列化.
+                    //@Since(版本号)能完美地实现这个功能.还的字段可能,随着版本的升级而删除,那么
+                    //@Until(版本号)也能实现这个功能,GsonBuilder.setVersion(double)方法需要调用.
+            .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
+            .create();
 
-
-//    public ModelAndView getUsers(HttpSession session, HttpServletResponse response) {
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+        public String getUsers(HttpSession session, HttpServletResponse response) {
 //        Cookie cookie = new Cookie("lastVisited", "/user");
 //        cookie.setPath("/");
 //        response.addCookie(cookie);
-//
 //        String loginStatement = (String) session.getAttribute("loginStatement");
-//        if (loginStatement == "login") {
-//            return new ModelAndView("user", "users", userService.get_users());
-//        } else {
-//            return new ModelAndView("redirect:/login");
-//        }
-//    }
+        List<User> users = userService.get_users();
+        return gson.toJson(users);
+    }
 
-    @RequestMapping(method = RequestMethod.POST)
+
+    @RequestMapping(value = "deleteUser", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteUsers( @PathVariable int id, HttpSession session, HttpServletResponse response) {
+        Cookie cookie = new Cookie("lastVisited", "user/deleteUser/" + id);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        userService.delete_user(id);
+
+    }
+
+    @RequestMapping(value = "updateUser",method = RequestMethod.POST)
     public ModelAndView insertUser(@RequestParam String name, String password, int employee_id,
                                    HttpSession sessionHttp, HttpServletResponse response) {
         String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
@@ -82,19 +95,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "deleteUser/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteUsers(@PathVariable int id, HttpSession session, HttpServletResponse response) {
-        String loginStatement = (String) session.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "user/deleteUser/" + id);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        if (loginStatement == "login") {
-            userService.delete_user(id);
-            return new ModelAndView("redirect:/user");
-        } else {
-            return new ModelAndView("redirect:/login");
-        }
-    }
+
 
     @RequestMapping(value = "updateUser/{id}", method = RequestMethod.GET)
     public ModelAndView getElementById(@PathVariable int id, HttpSession session, HttpServletResponse response) {

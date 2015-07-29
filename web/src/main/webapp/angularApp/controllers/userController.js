@@ -1,7 +1,24 @@
-angular.module('user_management')
+'use strict';
+
+angular.module('myApp')
     .controller('userController', function($scope, $http){
-        $http.get('/user').success(function(users){
+        $http.get('/web/user').success(function(users){
+            console.log(users);
             $scope.users = users;
+        });
+
+        $scope.delete = function(id){
+            $http({
+                method:'DELETE',
+                url:'web/user',
+                params:{'id':id}
+            }).success(function(){
+                $route.reload();
+            });
+        };
+
+        $http.delete('').success(function(){
+
         });
 
     });
