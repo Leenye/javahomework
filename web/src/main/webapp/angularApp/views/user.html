@@ -1,6 +1,4 @@
 <div class="body" >
-    <!--<p>user user user</p>-->
-<!--<p>{{users}}</p>-->
     <table >
         <tr>
             <th>姓名</th>
@@ -13,8 +11,8 @@
             <td>
                 <a href="#/updateUser/{{user.id}}">修改</a>
             </td>
-            <td ng-click="deleteUser(user.id)">
-                <a href="#/deleteUser">删除</a>
+            <td >
+                <a href ng-click="deleteUser($event,user.id)">删除</a>
             </td>
         </tr>
 

@@ -60,12 +60,12 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "deleteUser", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteUsers( @PathVariable int id, HttpSession session, HttpServletResponse response) {
-        Cookie cookie = new Cookie("lastVisited", "user/deleteUser/" + id);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+    public void deleteUsers( @RequestParam int id, HttpSession session, HttpServletResponse response) {
+//        Cookie cookie = new Cookie("lastVisited", "user/deleteUser/" + id);
+//        cookie.setPath("/");
+//        response.addCookie(cookie);
         userService.delete_user(id);
 
     }

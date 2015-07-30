@@ -3,22 +3,23 @@
 angular.module('myApp')
     .controller('userController', function($scope, $http){
         $http.get('/web/user').success(function(users){
-            console.log(users);
             $scope.users = users;
         });
 
-        $scope.delete = function(id){
+        $scope.deleteUser = function(event,id){
+            var tr = $(event.target).parent().parent();
+            console.log($(event));
+            //$event.target();
             $http({
                 method:'DELETE',
-                url:'web/user',
+                url:'/web/user/deleteUser',
                 params:{'id':id}
+
             }).success(function(){
-                $route.reload();
+                tr.remove();
+
+                //$route.reload();
             });
         };
-
-        $http.delete('').success(function(){
-
-        });
 
     });
