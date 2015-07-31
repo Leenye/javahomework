@@ -10,7 +10,7 @@
 <html>
 <head>
     <title></title>
-  <link rel="stylesheet" href="lib/css/bootstrap.css">
+  <link rel="stylesheet" href="../../lib/css/bootstrap.css">
 </head>
 <body>
 <div class="header">

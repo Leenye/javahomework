@@ -5,9 +5,8 @@ angular.module('myApp', ['ngRoute'])
                 templateUrl: '/web/angularApp/views/user.html',
                 controller: 'userController'
             })
-
-            //.otherwise({
-            //    redirectTo: '/111111'
-            //})
+            .otherwise({
+                redirectTo: '/'
+            })
 
     });

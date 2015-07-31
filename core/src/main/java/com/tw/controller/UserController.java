@@ -27,6 +27,7 @@ import java.util.List;
  * Created by twer on 7/13/15.
  */
 @Controller
+@ResponseBody
 @RequestMapping("/user")
 public class UserController {
 
@@ -60,7 +61,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
+    @RequestMapping( method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteUsers( @RequestParam int id, HttpSession session, HttpServletResponse response) {
 //        Cookie cookie = new Cookie("lastVisited", "user/deleteUser/" + id);
@@ -70,29 +71,23 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "updateUser",method = RequestMethod.POST)
-    public ModelAndView insertUser(@RequestParam String name, String password, int employee_id,
-                                   HttpSession sessionHttp, HttpServletResponse response) {
-        String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
-        Cookie cookie = new Cookie("lastVisited", "/user");
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        if (loginStatement == "login") {
-            String ps = MD5EncryptionHelper.stringMD5(password);
-            Employee employee = employeeService.get_element_by_id(employee_id);
-
-            if (userService.validationCheck(employee_id)) {
-                User user = new User(name, ps, employee);
-                userService.insert_users(user);
-                return new ModelAndView("redirect:/user");
-
-            } else {
-                return new ModelAndView("redirect:/user");
-            }
-
-        } else {
-            return new ModelAndView("redirect:/login");
+    @RequestMapping(value ="/addUser",method = RequestMethod.PUT)
+    @ResponseBody
+    public void insertUser(@RequestParam String name, String password, int employee_id) {
+        System.out.println(name+"+++++++++++++");
+//        String loginStatement = (String) sessionHttp.getAttribute("loginStatement");
+//        Cookie cookie = new Cookie("lastVisited", "/user");
+//        cookie.setPath("/");
+//        response.addCookie(cookie);
+        String ps = MD5EncryptionHelper.stringMD5(password);
+        Employee employee = employeeService.get_element_by_id(employee_id);
+        User user = new User();
+        if (userService.validationCheck(employee_id)) {
+            user = new User(name, ps, employee);
+            userService.insert_users(user);
         }
+        System.out.println("+++++++++++++++++++++"+user.getName());
+//        return gson.toJson(user);
     }
 
 

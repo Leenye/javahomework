@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login.jsp</title>
-    <link rel="stylesheet" href="lib/cssUser/table.css">
+    <link rel="stylesheet" href="../../lib/cssUser/main.css">
 </head>
 <body style="text-align: center">
 <form action="" method="post">

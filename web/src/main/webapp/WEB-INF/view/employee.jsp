@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>雇员信息页面</title>
-  <link rel="stylesheet" href="lib/cssUser/table.css">
+  <link rel="stylesheet" href="../../lib/cssUser/main.css">
 </head>
 <body>
 

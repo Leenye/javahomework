@@ -117,7 +117,7 @@
     </form>
 </div>
 
-<link rel="stylesheet" href="lib/cssUser/table.css">
+<link rel="stylesheet" href="../../lib/cssUser/main.css">
 <spring:url value="/lib/js/jquery-1.11.1.min.js" var="jquery"/>
 <spring:url value="/lib/js/schema.js" var="schemaJs"/>
 <script src="${jquery}"></script>

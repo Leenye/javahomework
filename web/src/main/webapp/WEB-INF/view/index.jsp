@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>健身房管理系统主页</title>
-    <link rel="stylesheet" href="lib/cssUser/table.css">
+    <link rel="stylesheet" href="../../lib/cssUser/main.css">
 
 </head>
 <body>

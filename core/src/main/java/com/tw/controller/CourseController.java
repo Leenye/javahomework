@@ -71,7 +71,7 @@ public class CourseController {
         cookie.setPath("/");
         response.addCookie(cookie);
         String loginStatement = (String) session.getAttribute("loginStatement");
-        if (loginStatement == "login") {
+        if (loginStatement.equals("login")) {
             courseService.delete_course(id);
             return new ModelAndView("redirect:/course");
         } else {
@@ -86,7 +86,7 @@ public class CourseController {
         Cookie cookie = new Cookie("lastVisited", "/course/updateCourse/" + id);
         cookie.setPath("/");
         response.addCookie(cookie);
-        if(loginStatement == "login"){
+        if(loginStatement.equals("login")){
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("courseUpdate");
             Course course =courseService.get_element_by_id(id);
@@ -104,7 +104,7 @@ public class CourseController {
         Cookie cookie = new Cookie("lastVisited", "/course/updateCourse/" +id);
         cookie.setPath("/");
         response.addCookie(cookie);
-        if (loginStatement == "login") {
+        if(loginStatement.equals("login")){
             if (courseService.validationCheck(name)) {
                 Course course = new Course(id, name, details);
                 courseService.update_course(course);
