@@ -1,0 +1,50 @@
+<div class="main">
+    <table border="1" cellpadding="5">
+        <tr>
+            <td>课程</td>
+            <td>教练</td>
+            <td>时间</td>
+            <td>学员</td>
+            <td colspan="2">操作</td>
+        </tr>
+        <tr ng-repeat="schema in schemas">
+            <td ng-show="update" ng-init="update = true">{{schema.course.name}}</td>
+            <td ng-show="update">{{schema.employee.name}}</td>
+            <td ng-show="update">{{schema.time}}</td>
+            <td ng-show="update">{{schema.customer}}</td>
+            <td ng-show="update">
+                <button ng-click="updateSchema($index)" >修改</button>
+            </td>
+            <td ng-show="update">
+                <button ng-click="deleteSchema($index,schema.id)" >删除</button>
+            </td>
+
+            <td ng-hide="update"><input type="text" ng-model="updateCourse[$index]"></td>
+            <td ng-hide="update"><input type="text" ng-model="updateCoach[$index]"></td>
+            <td ng-hide="update"><input type="text" ng-model="updateTime[$index]"></td>
+            <td ng-hide="update"><input type="text" ng-model="updateCustomer[$index]"></td>
+            <td ng-hide="update">
+                <button ng-click="confirmUpdate($index)" >确定修改</button>
+            </td>
+            <td ng-hide="update">
+                <button ng-click="cancelUpdate($index)" >取消修改</button>
+            </td>
+        </tr>
+    </table>
+
+    <form>
+        <div>课程：<select class="select" ng-model="courseName" >
+            <option ng-repeat="course in courses" value={{course.name}}>{{course.name}}</option>
+        </select>
+        </div>
+
+        <div>教练：<select class="select" ng-model="coachName">
+                <option ng-repeat="coach in coaches" value={{coach.name}}>{{coach.name}}</option>
+            </select>
+        </div>
+
+        <div>时间：<input type="date" ng-model="time"/></div>
+
+        <div>学员：<input type="text" ng-model="customer"/></div>
+    </form>
+</div>

@@ -18,6 +18,8 @@ angular.module('myApp')
                 }).success(function(){
                     tr.remove();
                     alert("删除成功");
+                }).error(function(){
+                    alert("删除失败，请重试") ;
                 });
             }
         };
