@@ -5,6 +5,10 @@ angular.module('myApp', ['ngRoute'])
                 templateUrl: '/web/angularApp/views/user.html',
                 controller: 'userController'
             })
+            .when('/schema',{
+                templateUrl: '/web/angularApp/views/schema.html',
+                controller: 'schemaController'
+            })
             .otherwise({
                 redirectTo: '/'
             })

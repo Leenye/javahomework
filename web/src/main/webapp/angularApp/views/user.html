@@ -1,26 +1,26 @@
-<div class="body">
+<div class="main">
     <table>
         <tr>
             <th>姓名</th>
             <th>工号</th>
-            <th>操作</th>
+            <th colspan="2">操作</th>
         </tr>
         <tr ng-repeat="user in users">
-            <td>{{user.name}}</td>
-            <td>{{user.employee.id}}</td>
-            <td>
+            <td ng-show = "update[$index]">{{user.name}}</td>
+            <td ng-show = "update[$index]">{{user.employee.id}}</td>
+            <td ng-show = "update[$index]">
                 <a href ng-click="updateUser($index)">修改</a>
             </td>
-            <td>
+            <td ng-show = "update[$index]">
                 <a href ng-click="deleteUser($event,user.id)">删除</a>
             </td>
+
             <td ng-hide="update[$index]" ng-init="update[$index] = true"><input type="text" ng-model="user.name"/></td>
             <td ng-hide="update[$index]"><input type="text" ng-model="user.password"/></td>
             <td ng-hide="update[$index]"><input type="submit" ng-click="commitUpdate($index,user)" value="确定修改"/>
+            <td ng-hide="update[$index]"><input type="submit" ng-click="cancelUpdate($index)" value="取消修改"/>
             </td>
-
         </tr>
-
     </table>
 
     <table>
@@ -34,12 +34,9 @@
             <td><input type="text" ng-model="name"/></td>
             <td><input type="text" ng-model="password"/></td>
             <td><input type="text" ng-model="employee"/></td>
-
         </tr>
     </table>
-    <input type="submit" ng-click="addUser()" value="添加系统用户"/>
-
+    <input class="input" type="submit" ng-click="addUser()" value="添加系统用户"/>
     <!--<button ng-click="test(user.id)">test</button>-->
-
 </div>
 

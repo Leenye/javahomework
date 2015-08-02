@@ -1,10 +1,7 @@
-/*a :link{*/
-    /*color: darkgoldenrod;*/
-/*}*/
-/*a :visited{*/
-    /*color: #269abc;*/
+a:link{
+    color: darkgoldenrod;
+}
 
-/*}*/
 a {
     margin-right: 25px;
     text-align: center;
@@ -12,12 +9,10 @@ a {
     color: darkgoldenrod;
 }
 
-
 h1,h2,h3{
     color: darkgoldenrod;
     font-size:20px;
     margin:0;
-
 }
 
 p {
@@ -25,33 +20,33 @@ p {
     font-family: fantasy;
     text-align: center;
 }
+
 p:hover{
     color: #eb9316;
 }
+
 table{
-    margin: 0 auto;
-    margin-top: 16px;
+    margin: 5px  auto 5px;
     border: 1px solid gold;
-
     width: 600px;
-
     background-color: antiquewhite;
     height: 35px;
     color: peru;
-
     font-size:18px;
     text-align: center;
 }
+
 tr:hover{
     background-color : khaki ;
 }
+
 td{
     height:35px;
 }
 
-input[type="submit"] {
+.input[type="submit"] {
     text-align: center;
-    margin-left: 675px;
+    margin:10px 675px 0px 675px;
     background-color: antiquewhite;
 }
 
@@ -71,9 +66,9 @@ input[type="submit"] {
     padding-left: 40px;
 }
 
-.body{
-    background-image: url(./images/background.jpg);
-    height: 991px;
+.main{
+    /*background-image: url(./images/background.jpg);*/
+    /*height: 991px;*/
 }
 
 

@@ -57,18 +57,21 @@ public class AngularUserController {
     public String insertUser(@RequestParam String name, String password, int employee_id) {
         String ps = MD5EncryptionHelper.stringMD5(password);
         Employee employee = employeeService.get_element_by_id(employee_id);
-        User user = new User();
         if (userService.validationCheck(employee_id)) {
+            System.out.println("add successfully_____________");
+            User user = new User();
             user = new User(name, ps, employee);
             userService.insert_users(user);
+            return gson.toJson(user);
+        } else {
+            System.out.println("add failed +++++++++++++++");
+            return "failed";
         }
-        return gson.toJson(user);
     }
 
     @RequestMapping( method = RequestMethod.PUT)
     public void updateUser(@RequestParam int id, String name, String password, int employee_id,
                                    HttpSession session, HttpServletResponse response) {
-        System.out.println("++++++++++++++++++++++++++++");
         System.out.println(id+name+password+employee_id+"+++++++++++");
 
         Employee employee = employeeService.get_element_by_id(employee_id);
