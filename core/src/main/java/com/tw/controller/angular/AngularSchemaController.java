@@ -72,4 +72,22 @@ public class AngularSchemaController {
         schemaService.delete_schema(id);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public String addSchema(@RequestParam int course_id,int coach_id,String time,String customer){
+
+        System.out.println("+++++++++++++++++++"+customer);
+        System.out.println(course_id);
+        System.out.println(coach_id);
+        Schema schema = new Schema();
+        if (schemaService.validationCheck(coach_id, time)) {
+            Course course = courseService.get_element_by_id(course_id);
+            Employee employee = employeeService.get_element_by_id(coach_id);
+            schema = new Schema(course, employee, time, customer);
+            schemaService.insert_schema(schema);
+        }
+        System.out.println(schema+"------------------------");
+        return gson.toJson(schema);
+    }
+
+
 }
