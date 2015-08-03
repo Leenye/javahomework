@@ -13,7 +13,7 @@ CREATE TABLE schedule (
   id INT NOT NULL AUTO_INCREMENT primary key,
   course_id INT,
   coach_id INT,
-  time DATE,
+  time VARCHAR(20),
   customer VARCHAR(20) ,
 
   FOREIGN KEY (course_id) REFERENCES course(id) ,

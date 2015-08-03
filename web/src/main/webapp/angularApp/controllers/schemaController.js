@@ -26,16 +26,10 @@ angular.module('myApp')
             }
         };
 
-
-        $scope.update = [];
-
         $scope.addSchema = function(){
-            console.log($scope.selectedCourse+"----------------");
-            console.log($scope.selectedCoach+"----------------");
             var time = $scope.time;
-            //time = new Date(time).toLocaleDateString();
+            time = new Date(time).toLocaleDateString();
 
-            console.log(time+"+++++++++++++++++++");
             $http({
                 method: 'POST',
                 url: '/web/angular/schema/',
@@ -46,19 +40,46 @@ angular.module('myApp')
                     'customer': $scope.customer
                 }
             }).success(function (schema) {
+                console.log("add success~~~~~~~~~~~");
                 $scope.schemas.push(schema);
 
             }).error(function () {
                 alert(" 操作有误，请正确输入");
             });
-
-            //$http.post('/web/angular/schema/',{params:{'course_id':$scope.selectedCourse,'coach_id':$scope.selectedCoach,'time':$scope.time,'customer':$scope.customer}}).success(function(schema){
-            //    $scope.schemas.push(schema);
-            //}).error(function(){
-            //    alert("添加失败，请重试。");
-            //});
         };
 
+        $scope.update = [];
+        $scope.updateCourse = [];
+        $scope.updateCoach = [];
+        $scope.updateTime = [];
+        $scope.updateCustomer= [];
+        $scope.updateSchema = function($index){
+            $scope.update[$index] = false;
+        };
+
+        $scope.confirmUpdate = function($index){
+            $scope.update[$index] = true;
+
+            console.log($scope.updateCourse[$index]);
+            console.log($scope.updateCoach[$index]);
+
+           var time = new Date($scope.updateTime[$index]).toLocaleDateString();
+
+
+            $http({
+                method:'PUT',
+                url:'/web/angular/schema/',
+                params:{
+                    'course_id': $scope.updateCourse[$index],
+                    'coach_id': $scope.updateCoach[$index],
+                    'time': time,
+                    'customer': $scope.updateCustomer[$index]
+                }
+            }).success(function(){
+
+            });
+
+        }
 
 
     });
