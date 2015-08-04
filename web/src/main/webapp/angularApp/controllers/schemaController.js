@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp')
-    .controller('schemaController', function($scope, $http){
+    .controller('schemaController', function($scope, $http, $filter){
 
         $http.get('/web/angular/schema/').success(function(schemas){
             $scope.schemas = schemas;
@@ -28,8 +28,8 @@ angular.module('myApp')
 
         $scope.addSchema = function(){
             var time = $scope.time;
-            time = new Date(time).toLocaleDateString();
-
+            //time = new Date(time).toLocaleDateString();
+            time = $filter('date')(time, 'yyyy-MM-dd');
             $http({
                 method: 'POST',
                 url: '/web/angular/schema/',
@@ -78,8 +78,5 @@ angular.module('myApp')
             }).success(function(){
 
             });
-
         }
-
-
     });
