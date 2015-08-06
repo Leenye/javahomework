@@ -1,43 +1,38 @@
-<?xml version='1.0' encoding='utf-8'?>
-        <!DOCTYPE hibernate-configuration PUBLIC
-                "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-                "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!--<?xml version='1.0' encoding='utf-8'?>-->
+        <!--<!DOCTYPE hibernate-configuration PUBLIC-->
+                <!--"-//Hibernate/Hibernate Configuration DTD 3.0//EN"-->
+                <!--"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">-->
 
-<hibernate-configuration>
+<!--<hibernate-configuration>-->
 
-    <session-factory>
+    <!--<session-factory>-->
 
-        <!-- Database connection settings -->
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost/dev</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password"></property>
-        <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
+        <!--&lt;!&ndash; Database connection settings &ndash;&gt;-->
+        <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <!--<property name="connection.url">jdbc:mysql://localhost/dev</property>-->
+        <!--<property name="connection.username">root</property>-->
+        <!--<property name="connection.password"></property>-->
+        <!--&lt;!&ndash; JDBC connection pool (use the built-in) &ndash;&gt;-->
+        <!--<property name="connection.pool_size">1</property>-->
 
-        <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!--&lt;!&ndash; SQL dialect &ndash;&gt;-->
+        <!--<property name="dialect">org.hibernate.dialect.MySQLDialect</property>-->
 
-        <!--&lt;!&ndash; Enable Hibernate's automatic session context management &ndash;&gt;-->
-        <property name="current_session_context_class">thread</property>
+        <!--&lt;!&ndash;&lt;!&ndash; Enable Hibernate's automatic session context management &ndash;&gt;&ndash;&gt;-->
+        <!--<property name="current_session_context_class">thread</property>-->
+        <!--&lt;!&ndash;<property name="hibernate.enable_lazy_load_no_trans">true</property>&ndash;&gt;-->
         <!--<property name="hibernate.enable_lazy_load_no_trans">true</property>-->
-        <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">true</property>
-        <property name="format_sql">true</property>
-        <mapping class="com.tw.entity.User"/>
-        <mapping class="com.tw.entity.Employee"/>
-        <mapping class="com.tw.entity.Customer"/>
-        <mapping class="com.tw.entity.Course"/>
-        <mapping class="com.tw.entity.Schema"/>
-
+        <!--&lt;!&ndash; Echo all executed SQL to stdout &ndash;&gt;-->
+        <!--<property name="show_sql">true</property>-->
+        <!--<property name="format_sql">true</property>-->
+        <!--<mapping class="com.tw.entity.User"/>-->
+        <!--<mapping class="com.tw.entity.Employee"/>-->
+        <!--<mapping class="com.tw.entity.Customer"/>-->
+        <!--<mapping class="com.tw.entity.Course"/>-->
+        <!--<mapping class="com.tw.entity.Schema"/>-->
 
 
+    <!--</session-factory>-->
 
-
-        <!--<mapping resource="usr_table.hbm.xml" />-->
-
-    </session-factory>
-
-</hibernate-configuration>
+<!--</hibernate-configuration>-->

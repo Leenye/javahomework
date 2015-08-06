@@ -4,57 +4,55 @@ import com.tw.entity.Employee;
 import com.tw.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Created by twer on 7/19/15.
  */
 @Repository
+@EnableTransactionManagement
+@Transactional
 public class EmployeeDao {
 
-    public List<Employee> get_employees() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+    @Autowired
+    private SessionFactory sessionFactory;
 
+
+    public List<Employee> get_employees() {
+        Session session = sessionFactory.getCurrentSession();
         List<Employee> employees = session.createQuery("from Employee").list();
-        session.getTransaction().commit();
         return employees;
     }
 
     public void insert_employee(Employee employee) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();//开启操作数据库的事务
+        Session session = sessionFactory.getCurrentSession();
         session.save(employee);
-        session.getTransaction().commit();
     }
 
     public void delete_employee(int id) {
         Employee employee = new Employee();
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
         employee.setId(id);
         session.delete(employee);
-        session.getTransaction().commit();
     }
 
     public Employee get_element_by_id(int id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
         Employee employee = (Employee) session.get(Employee.class, id);
-        session.getTransaction().commit();
         return employee;
     }
 
     public void update(Employee employee) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
         session.update(employee);
-        session.getTransaction().commit();
     }
-
-
 
 
 

@@ -7,64 +7,60 @@ import org.hibernate.Session;
 import org.hibernate.Query;
 
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Created by twer on 7/8/15.
  */
 @Repository
+@Transactional
 public class UserDao {
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     public List<User> get_users() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();//开启操作数据库的事务
+        Session session = sessionFactory.getCurrentSession();
 
         String hql = "from User";
         Query query = session.createQuery(hql);
         List<User> users = query.list();
-        session.getTransaction().commit();
         return users;
     }
 
     public void insert_user(User user) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();//开启操作数据库的事务
+        Session session = sessionFactory.getCurrentSession();
         session.save(user);
-        session.getTransaction().commit();
     }
 
     public void delete_user(int id) {
         User user = new User();
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
         user.setId(id);
         session.delete(user);
-        session.getTransaction().commit();
 
     }
 
     public User get_element_by_id(int id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
         User user = (User) session.get(User.class, id);
-        session.getTransaction().commit();
         return user;
     }
 
     public void update(User user) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
         session.update(user);
-        session.getTransaction().commit();
     }
 
 
     public boolean login_judgement(String name, String password) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         int usrsNum;
-        session.beginTransaction();
 
         Query query = session.createQuery("FROM User user where user.name = ? and user.password = ?");
         query.setString(0, name);
@@ -72,7 +68,6 @@ public class UserDao {
 
         List<User> users = query.list();
         usrsNum = users.size();
-        session.getTransaction().commit();
 
         boolean flag = true;
         if (usrsNum == 1) {

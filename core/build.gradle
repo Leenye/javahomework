@@ -12,6 +12,12 @@ buildscript {
 
 dependencies {
     testCompile 'junit:junit:4.10'
+    testCompile 'org.springframework:spring-test:4.2.0.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.2.0.RELEASE'
+    compile 'org.springframework:spring-orm:4.2.0.RELEASE'
+    compile 'org.springframework:spring-context:4.2.0.RELEASE'
+    compile 'org.springframework:spring-tx:4.2.0.RELEASE'
+
     compile 'org.hibernate:hibernate-core:4.3.10.Final'
     compile 'mysql:mysql-connector-java:5.1.34'
     compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'

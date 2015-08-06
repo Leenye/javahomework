@@ -25,8 +25,14 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring-web-servlet.xml</param-value>
+        <param-value>/WEB-INF/spring-web-servlet.xml,classpath:applicationContext.xml</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>jdbc.active.database</param-name>
+        <param-value>dev</param-value>
+    </context-param>
+
 </web-app>
 
         <!--<?xml version="1.0" encoding="ISO-8859-1"?>-->

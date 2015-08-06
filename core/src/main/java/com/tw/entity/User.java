@@ -15,7 +15,7 @@ public class User {
     private  String password;
     private Employee employee;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     public Employee getEmployee(){
         return employee;
