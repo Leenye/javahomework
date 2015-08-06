@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Repository
 @EnableTransactionManagement
-@Transactional
+//@Transactional
 public class EmployeeDao {
 
     @Autowired
@@ -37,9 +37,11 @@ public class EmployeeDao {
     }
 
     public void delete_employee(int id) {
-        Employee employee = new Employee();
         Session session = sessionFactory.getCurrentSession();
-        employee.setId(id);
+
+//        Employee employee = new Employee();
+//        employee.setId(id);
+        Employee employee = (Employee) session.get(Employee.class,id);
         session.delete(employee);
     }
 
