@@ -23,7 +23,7 @@ dependencies {
 //apply plugin: 'org.flywaydb.flyway'
 
 flyway {
-    url = 'jdbc:mysql://localhost:3306/javaee_usr_info'
+    url = 'jdbc:mysql://localhost:3306/dev'
     user = 'root'
     password = ''
     driver = 'com.mysql.jdbc.Driver'
